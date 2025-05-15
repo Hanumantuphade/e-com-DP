@@ -9,6 +9,7 @@ import ProductSection from "@/components/ProductSection";
 import ServiceFeatures from "@/components/ServiceFeatures";
 import CustomerTestimonials from "@/components/CustomerTestimonials";
 import Footer from "@/components/Footer";
+import ContactReview from "@/components/ContactReview";
 
 // Define category data
 const categoryData = [
@@ -64,7 +65,8 @@ export default function Home() {
       
       <ServiceFeatures />
       <CustomerTestimonials />
-      <Footer />
+      <ContactReview />
+      {/* <Footer /> */}
     </main>
   );
 }

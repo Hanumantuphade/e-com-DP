@@ -1,42 +1,68 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
 import PromotionCarousel from "@/components/PromotionCarousel";
-import ServiceFeatures from "@/components/ServiceFeatures";
+import CategorySection from "@/components/CategorySection";
 import ProductSection from "@/components/ProductSection";
+import ServiceFeatures from "@/components/ServiceFeatures";
 import CustomerTestimonials from "@/components/CustomerTestimonials";
-import CategoryTabs from "@/components/CategoryTabs";
 import Footer from "@/components/Footer";
 
+// Define category data
+const categoryData = [
+  { 
+    id: "all", 
+    name: "All Products", 
+    image: "/logo1.png" 
+  },
+  { 
+    id: "ayurveda", 
+    name: "Ayurveda", 
+    image: "/ayu.png" 
+  },
+  { 
+    id: "skin-care", 
+    name: "Skin Care", 
+    image: "/skin.png" 
+  },
+  { 
+    id: "cough", 
+    name: "Cold & Cough", 
+    image: "/cold.png" 
+  },
+  { 
+    id: "baby", 
+    name: "Baby Care", 
+    image: "/baby.png" 
+  }
+];
+
 export default function Home() {
+  // State to track active category
   const [activeCategory, setActiveCategory] = useState("all");
-  
-  const categories = [
-    { id: "all", name: "All" },
-    { id: "ayurveda", name: "Ayurveda" },
-    { id: "allopathy", name: "Allopathy" },
-    { id: "homeopathy", name: "Homeopathy" },
-    { id: "personal-care", name: "Personal Care" },
-    { id: "wellness", name: "Wellness" }
-  ];
 
   return (
     <main className="min-h-screen bg-gray-50">
       <Header />
       <HeroBanner />
       <PromotionCarousel />
+      
+      {/* Category Section */}
+      <CategorySection
+        categories={categoryData}
+        activeCategory={activeCategory}
+        setActiveCategory={setActiveCategory}
+      />
+      
+      {/* Product Section filtered by active category */}
+      <ProductSection
+        title="Featured Products"
+        category={activeCategory}
+      />
+      
       <ServiceFeatures />
-      <CategoryTabs 
-        categories={categories} 
-        activeCategory={activeCategory} 
-        setActiveCategory={setActiveCategory} 
-      />
-      <ProductSection 
-        title="Top Products" 
-        category={activeCategory} 
-      />
       <CustomerTestimonials />
       <Footer />
     </main>

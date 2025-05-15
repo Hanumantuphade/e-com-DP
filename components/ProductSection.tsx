@@ -98,7 +98,7 @@ export default function ProductSection({ title, category }: ProductSectionProps)
       image: "/product4.jpg",
       price: 210,
       mrp: 230,
-      category: "allopathy"
+      category: "baby"
     },
     {
       id: "5",
@@ -107,7 +107,7 @@ export default function ProductSection({ title, category }: ProductSectionProps)
       price: 48,
       mrp: 53,
       discount: "10% off",
-      category: "allopathy"
+      category: "cough"
     },
     {
       id: "6",
@@ -115,7 +115,7 @@ export default function ProductSection({ title, category }: ProductSectionProps)
       image: "/product6.jpg",
       price: 405,
       mrp: 450,
-      category: "personal-care"
+      category: "skin-care"
     },
     {
       id: "7",
@@ -123,7 +123,7 @@ export default function ProductSection({ title, category }: ProductSectionProps)
       image: "/product7.jpg",
       price: 495,
       mrp: 550,
-      category: "homeopathy"
+      category: "baby"
     },
     {
       id: "8",

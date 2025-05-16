@@ -66,7 +66,7 @@ export default function Home() {
       <ServiceFeatures />
       <CustomerTestimonials />
       <ContactReview />
-      {/* <Footer /> */}
+      <Footer />
     </main>
   );
 }

@@ -1,4 +1,3 @@
-// services/product-service.ts
 import { Product } from "@/types";
 
 const BASE_URL = "/api/proxy/products";
@@ -51,11 +50,8 @@ export const getProductsByCategory = async (categoryId: string): Promise<Product
       return products;
     }
 
-    // Find products that match the category name (not exact match, case-insensitive)
-    return products.filter(product => 
-      product.category && 
-      product.category.name.toLowerCase().includes(categoryId.toLowerCase())
-    );
+    // Filter products by category ID instead of category name
+    return products.filter(product => product.categoryId === categoryId);
   } catch (error) {
     console.error(`Error fetching products for category ${categoryId}:`, error);
     throw error;

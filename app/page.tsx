@@ -1,6 +1,6 @@
 // app/page.tsx
-"use client";
 
+"use client";
 import { useState } from "react";
 import Header from "@/components/Header";
 import HeroBanner from "@/components/HeroBanner";
@@ -14,37 +14,44 @@ import Footer from "@/components/Footer";
 import ContactReview from "@/components/ContactReview";
 import { categoryData } from "@/services/category-service";
 
+
 export default function Home() {
-  // State to track active category
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState("");
 
   return (
     <main className="min-h-screen bg-gray-50">
       <Header />
       <HeroBanner />
       <PromotionCarousel />
-      
-      {/* Category Section */}
+
+      {/* Category Selector */}
       <CategorySection
         categories={categoryData}
         activeCategory={activeCategory}
         setActiveCategory={setActiveCategory}
       />
-      
-      {/* Product Section filtered by active category */}
+
+      {/* Show products only when a category is selected */}
+      {activeCategory && (
+        <ProductSection
+          title="Products"
+          category={activeCategory}
+        />
+      )}
+
+      {/* Always visible sections */}
+      <TopDiscounts />
+
       <ProductSection
         title="Featured Products"
-        category={activeCategory}
+        category="all"
+        isFeatured={true}
       />
-      
-      {/* Top Discounts Section */}
-      <TopDiscounts />
-      
-      
-      
+
       <ServiceFeatures />
       <CustomerTestimonials />
       <ContactReview />
+      {/* <FooterHeader /> */}
       <Footer />
     </main>
   );

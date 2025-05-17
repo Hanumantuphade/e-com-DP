@@ -1,4 +1,5 @@
 // components/ProductCard.tsx
+
 "use client";
 
 import { Product } from "@/types";
@@ -15,12 +16,11 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
   
-  // Get the main image or use a placeholder
   const mainImage = product.images?.[0]?.url || "/placeholder.png";
   
   return (
     <div 
-      className="bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105"
+      className="bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:translate-y-[-5px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -32,27 +32,39 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             fill
             className="object-cover"
           />
+          
           {isHovered && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20">
-              <button className="bg-white p-2 rounded-full mr-2 hover:bg-gray-100">
-                <Heart className="h-5 w-5 text-gray-700" />
+            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-20 transition-opacity duration-300">
+              <button className="bg-white p-2 rounded-full mr-2 hover:bg-gray-100 shadow-lg transform hover:scale-105 transition-transform">
+                <Heart className="h-5 w-5 text-red-500" />
               </button>
-              <button className="bg-white p-2 rounded-full hover:bg-gray-100">
-                <ShoppingCart className="h-5 w-5 text-gray-700" />
+              <button className="bg-white p-2 rounded-full hover:bg-gray-100 shadow-lg transform hover:scale-105 transition-transform">
+                <ShoppingCart className="h-5 w-5 text-blue-500" />
               </button>
             </div>
           )}
         </div>
       </Link>
+      
       <div className="p-4">
-        <h3 className="text-lg font-medium text-gray-800 mb-1">{product.name}</h3>
+        <h3 className="text-lg font-medium text-gray-800 mb-1 truncate" title={product.name}>
+          {product.name}
+        </h3>
         <div className="flex justify-between items-center">
-          <span className="text-lg font-bold text-blue-600">
-            {formatPrice(product.price)}
-          </span>
-          <span className="text-sm text-gray-500">
-            {product.size?.value || ""}
-          </span>
+          <div className="flex flex-col">
+            <span className="text-lg font-bold text-blue-600">
+              {formatPrice(product.price)}
+            </span>
+            {product.size?.value && (
+              <span className="text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-600">
+                {product.size.value}
+              </span>
+            )}
+          </div>
+          
+          <button className="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded-full transition-colors">
+            Buy Now
+          </button>
         </div>
       </div>
     </div>

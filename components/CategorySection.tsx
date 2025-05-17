@@ -18,11 +18,22 @@ const CategorySection: React.FC<CategorySectionProps> = ({
   setActiveCategory 
 }) => {
   const [categories, setCategories] = useState<CategoryWithImage[]>(initialCategories);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Combine hardcoded categories with any additional ones fetched
-    const allCategories = getCategories();
-    setCategories(allCategories);
+    const fetchCategories = async () => {
+      setLoading(true);
+      try {
+        const fetchedCategories = await getCategories();
+        setCategories(fetchedCategories);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   return (
@@ -45,10 +56,14 @@ const CategorySection: React.FC<CategorySectionProps> = ({
             >
               <div className="relative h-16 w-16 mb-3">
                 <Image
-                  src={category.image}
+                  src={category.image || `/${category.name.toLowerCase().replace(/\s+/g, '-')}.png`}
                   alt={category.name}
                   fill
                   className="object-contain"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "/logo1.png"; // Fallback image
+                  }}
                 />
               </div>
               <h3 className={`text-sm font-medium text-center ${

@@ -10,7 +10,7 @@ export default function ContactReview() {
   const [showEnlargedQR, setShowEnlargedQR] = useState(false);
 
   const openGoogleMaps = () => {
-    window.open(`https://www.google.com/maps/place/?q=place_id:ChIJE1oK3YM7DjkRO-3OyXy8Kos`, '_blank', 'noopener,noreferrer');
+    window.open(`https://www.google.com/maps/place/DUA+PHARMACY,+Chanarthal+Rd,+near+New+Anaj+Mandi,+Thanesar,+Haryana+136118/@29.9516773,76.8391367,17z/data=!4m6!3m5!1s0x390e3b83dd0a5a13:0x8b2abc7cc9ceed3b!8m2!3d29.9517022!4d76.8392053!16s%2Fg%2F11wq0bj8_0?utm_campaign=ml-ardl&g_ep=Eg1tbF8yMDI1MDUxMl8wIJvbDyoASAJQAQ%3D%3D`, '_blank', 'noopener,noreferrer');
   };
 
   const openReviewPage = () => {

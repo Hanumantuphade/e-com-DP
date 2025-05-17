@@ -31,14 +31,16 @@ export default function Home() {
         setActiveCategory={setActiveCategory}
       />
       
-      {/* Top Discounts Section */}
-      <TopDiscounts />
-      
       {/* Product Section filtered by active category */}
       <ProductSection
         title="Featured Products"
         category={activeCategory}
       />
+      
+      {/* Top Discounts Section */}
+      <TopDiscounts />
+      
+      
       
       <ServiceFeatures />
       <CustomerTestimonials />

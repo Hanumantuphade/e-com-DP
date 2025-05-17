@@ -78,7 +78,7 @@ export interface Billboard {
 export interface CategoryWithImage {
   id: string;
   name: string;
-  image: string;
+  image?: string;
 }
 
 export interface PromotionCard {

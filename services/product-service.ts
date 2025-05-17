@@ -1,3 +1,4 @@
+// services/product-service.ts
 import { Product } from "@/types";
 
 const BASE_URL = "/api/proxy/products";

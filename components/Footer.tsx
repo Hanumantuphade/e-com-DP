@@ -14,6 +14,7 @@ import {
   CheckCircle
 } from "lucide-react";
 import FooterHeader from "./FooterHeader";
+import TopBrands from "./topBrands";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -52,7 +53,10 @@ export default function Footer() {
   return (
     <footer className="relative overflow-hidden">
       {/* Footer Header Component */}
+      
+      <TopBrands />
       <FooterHeader />
+      
       
       {/* Section break */}
       <div className="h-2 bg-green-300 w-full"></div>

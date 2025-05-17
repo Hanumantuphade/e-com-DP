@@ -97,7 +97,7 @@ const TopDiscounts: React.FC = () => {
   });
 
   return (
-    <section className="py-12 bg-gradient-to-r from-red-300 to-pink-300">
+    <section className="py-12 bg-gradient-to-r from-red-200 to-pink-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative pb-4">
           {/* Top section with title and navigation */}

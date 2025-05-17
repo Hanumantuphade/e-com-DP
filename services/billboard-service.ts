@@ -1,13 +1,34 @@
 // services/billboard-service.ts
 import { Billboard } from "@/types";
-import { API_URL, fetcher } from "@/utils/api";
 
-const URL = `${API_URL}/billboards`;
+const BASE_URL = "/api/proxy/billboards";
 
 export const getBillboards = async (): Promise<Billboard[]> => {
-  return fetcher(URL);
+  try {
+    const response = await fetch(BASE_URL);
+    
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching billboards:", error);
+    throw error;
+  }
 };
 
 export const getBillboard = async (id: string): Promise<Billboard> => {
-  return fetcher(`${URL}/${id}`);
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`);
+    
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    
+    return response.json();
+  } catch (error) {
+    console.error(`Error fetching billboard ${id}:`, error);
+    throw error;
+  }
 };

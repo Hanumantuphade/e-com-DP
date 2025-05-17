@@ -1,35 +1,73 @@
 // services/product-service.ts
 import { Product } from "@/types";
-import { API_URL, fetcher } from "@/utils/api";
-import qs from "query-string";
 
-const URL = `${API_URL}/products`;
+const BASE_URL = "/api/proxy/products";
 
-interface Query {
-  categoryId?: string;
-  colorId?: string;
-  sizeId?: string;
-  isFeatured?: boolean;
-}
-
-export const getProducts = async (query: Query = {}): Promise<Product[]> => {
-  const url = qs.stringifyUrl({
-    url: URL,
-    query: {
-      colorId: query.colorId,
-      sizeId: query.sizeId,
-      categoryId: query.categoryId,
-      isFeatured: query.isFeatured,
-    },
-  });
-  
-  return fetcher(url);
+export const getProducts = async (): Promise<Product[]> => {
+  try {
+    const response = await fetch(BASE_URL);
+    
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
 };
 
 export const getProduct = async (id: string): Promise<Product> => {
-  return fetcher(`${URL}/${id}`);
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`);
+    
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    
+    return response.json();
+  } catch (error) {
+    console.error(`Error fetching product ${id}:`, error);
+    throw error;
+  }
 };
 
 export const getFeaturedProducts = async (): Promise<Product[]> => {
-  return getProducts({ isFeatured: true });
+  try {
+    const products = await getProducts();
+    return products.filter(product => product.isFeatured);
+  } catch (error) {
+    console.error("Error fetching featured products:", error);
+    throw error;
+  }
+};
+
+export const getProductsByCategory = async (categoryId: string): Promise<Product[]> => {
+  try {
+    const products = await getProducts();
+    
+    if (categoryId === "all") {
+      return products;
+    }
+
+    // Find products that match the category name (not exact match, case-insensitive)
+    return products.filter(product => 
+      product.category && 
+      product.category.name.toLowerCase().includes(categoryId.toLowerCase())
+    );
+  } catch (error) {
+    console.error(`Error fetching products for category ${categoryId}:`, error);
+    throw error;
+  }
+};
+
+export const getDiscountedProducts = async (): Promise<Product[]> => {
+  try {
+    const products = await getProducts();
+    return products.filter(product => product.discountId !== null);
+  } catch (error) {
+    console.error("Error fetching discounted products:", error);
+    throw error;
+  }
 };

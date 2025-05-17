@@ -1,78 +1,69 @@
+// components/CategorySection.tsx
 "use client";
 
-import Image from 'next/image';
-import { useState } from 'react';
-
-export interface Category {
-  id: string;
-  name: string;
-  image: string;
-}
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { CategoryWithImage } from "@/types";
+import { getCategories } from "@/services/category-service";
 
 interface CategorySectionProps {
-  categories: Category[];
+  categories: CategoryWithImage[];
   activeCategory: string;
-  setActiveCategory: (category: string) => void;
+  setActiveCategory: (id: string) => void;
 }
 
-export default function CategorySection({
-  categories,
-  activeCategory,
-  setActiveCategory
-}: CategorySectionProps) {
-  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+const CategorySection: React.FC<CategorySectionProps> = ({ 
+  categories: initialCategories, 
+  activeCategory, 
+  setActiveCategory 
+}) => {
+  const [categories, setCategories] = useState<CategoryWithImage[]>(initialCategories);
+
+  useEffect(() => {
+    // Combine hardcoded categories with any additional ones fetched
+    const allCategories = getCategories();
+    setCategories(allCategories);
+  }, []);
 
   return (
-    <div className="py-10 bg-green-100 shadow-sm">
+    <section className="bg-grey-100 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-center mb-8">
-          <div className="h-1 bg-blue-500 w-12 rounded mr-3"></div>
-          <h2 className="text-2xl font-bold text-gray-800">Categories</h2>
-          <div className="h-1 bg-blue-500 w-12 rounded ml-3"></div>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
+          Shop by Category
+        </h2>
+        
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {categories.map((category) => (
             <div
               key={category.id}
+              className={`flex flex-col items-center cursor-pointer transition-all duration-300 p-4 rounded-lg ${
+                activeCategory === category.id 
+                  ? "bg-blue-50 shadow-md" 
+                  : "hover:bg-gray-50"
+              }`}
               onClick={() => setActiveCategory(category.id)}
-              onMouseEnter={() => setHoveredCategory(category.id)}
-              onMouseLeave={() => setHoveredCategory(null)}
-              className="flex flex-col items-center justify-center text-center space-y-2 cursor-pointer"
             >
-              <div
-                className={`relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden flex items-center justify-center transition-all duration-300 ${
-                  hoveredCategory === category.id ? "transform -translate-y-1 scale-105" : ""
-                } ${
-                  activeCategory === category.id
-                    ? "ring-2 ring-blue-500 shadow-lg bg-blue-50"
-                    : "bg-white shadow hover:shadow-md"
-                }`}
-              >
+              <div className="relative h-16 w-16 mb-3">
                 <Image
                   src={category.image}
                   alt={category.name}
                   fill
-                  className={`object-contain transition-transform duration-300 ${
-                    hoveredCategory === category.id ? "scale-110" : ""
-                  }`}
+                  className="object-contain"
                 />
               </div>
-              <h3
-                className={`text-sm font-medium transition-colors duration-300 ${
-                  activeCategory === category.id
-                    ? "text-blue-600"
-                    : hoveredCategory === category.id
-                    ? "text-blue-500"
-                    : "text-gray-700"
-                }`}
-              >
+              <h3 className={`text-sm font-medium text-center ${
+                activeCategory === category.id 
+                  ? "text-blue-600" 
+                  : "text-gray-700"
+              }`}>
                 {category.name}
               </h3>
             </div>
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
+
+export default CategorySection;

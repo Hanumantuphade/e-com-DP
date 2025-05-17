@@ -4,7 +4,7 @@
 import { useState, useEffect } from "react";
 import { Product } from "@/types";
 import { getDiscounts } from "@/services/discount-service";
-import DiscountProductCard from "@/components/ui/DiscountProductCard";
+import DiscountProductCard from "@/components/DiscountProductCard";
 
 interface DiscountSectionProps {
   title: string;

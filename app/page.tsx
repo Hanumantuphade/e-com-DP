@@ -7,40 +7,12 @@ import HeroBanner from "@/components/HeroBanner";
 import PromotionCarousel from "@/components/PromotionCarousel";
 import CategorySection from "@/components/CategorySection";
 import ProductSection from "@/components/ProductSection";
-import DiscountSection from "@/components/DiscountSection";
+import TopDiscounts from "@/components/TopDiscounts";
 import ServiceFeatures from "@/components/ServiceFeatures";
 import CustomerTestimonials from "@/components/CustomerTestimonials";
 import Footer from "@/components/Footer";
 import ContactReview from "@/components/ContactReview";
-
-// Define category data
-const categoryData = [
-  {
-    id: "all",
-    name: "All Products",
-    image: "/logo1.png"
-  },
-  {
-    id: "e932d5a2-cd99-4ec2-b798-3a9393495610", // Ayurveda category ID from API
-    name: "Ayurveda",
-    image: "/ayu.png"
-  },
-  {
-    id: "skin-care",
-    name: "Skin Care",
-    image: "/skin.png"
-  },
-  {
-    id: "cough",
-    name: "Cold & Cough",
-    image: "/cold.png"
-  },
-  {
-    id: "baby",
-    name: "Baby Care",
-    image: "/baby.png"
-  }
-];
+import { categoryData } from "@/services/category-service";
 
 export default function Home() {
   // State to track active category
@@ -59,14 +31,14 @@ export default function Home() {
         setActiveCategory={setActiveCategory}
       />
       
+      {/* Top Discounts Section */}
+      <TopDiscounts />
+      
       {/* Product Section filtered by active category */}
       <ProductSection
         title="Featured Products"
         category={activeCategory}
       />
-      
-      {/* Discount Section */}
-      <DiscountSection title="Top Discounts" />
       
       <ServiceFeatures />
       <CustomerTestimonials />

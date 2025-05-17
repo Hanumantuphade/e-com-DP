@@ -1,86 +1,77 @@
 // components/PromotionCarousel.tsx
-"use client"
+"use client";
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Billboard } from "@/types";
+import { Billboard, PromotionCard } from "@/types";
 import { getBillboards } from "@/services/billboard-service";
+
+const staticPromotionCards: PromotionCard[] = [
+  {
+    id: 1,
+    bgColor: "bg-orange-50",
+    textColor: "text-orange-800",
+    title: "Your Daily Dose of Energy",
+    subtitle: "Superior Protein for Everyday Energy & Muscle Repair",
+    buttonColor: "bg-orange-600",
+    imageSrc: "/energy.png",
+  },
+  {
+    id: 2,
+    bgColor: "bg-teal-50",
+    textColor: "text-teal-800",
+    title: "Wellness simplified",
+    subtitle: "with Dua Pharmacy products",
+    buttonColor: "bg-teal-600",
+    discount: "Up to 25% off",
+    imageSrc: "/well.png",
+  },
+  {
+    id: 3,
+    bgColor: "bg-purple-50",
+    textColor: "text-purple-800",
+    title: "Natural Ayurvedic Products",
+    subtitle: "Ancient wisdom for modern health challenges",
+    buttonColor: "bg-purple-600",
+    discount: "Up to 30% off",
+    imageSrc: "/ayurveda.png",
+  },
+];
 
 export default function PromotionCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [billboards, setBillboards] = useState<Billboard[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [allPromotions, setAllPromotions] = useState<PromotionCard[]>(staticPromotionCards);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
+  const [totalSlides, setTotalSlides] = useState(staticPromotionCards.length);
 
-  // Static promotion cards as fallback
-  const staticPromotionCards = [
-    {
-      id: 1,
-      bgColor: "bg-orange-50",
-      textColor: "text-orange-800",
-      title: "Your Daily Dose of Energy",
-      subtitle: "Superior Protein for Everyday Energy & Muscle Repair",
-      buttonColor: "bg-orange-600",
-      imageSrc: "/energy.png",
-    },
-    {
-      id: 2,
-      bgColor: "bg-teal-50",
-      textColor: "text-teal-800",
-      title: "Wellness simplified",
-      subtitle: "with Dua Pharmacy products",
-      buttonColor: "bg-teal-600",
-      discount: "Up to 25% off",
-      imageSrc: "/well.png",
-    },
-    {
-      id: 3,
-      bgColor: "bg-purple-50",
-      textColor: "text-purple-800",
-      title: "Natural Ayurvedic Products",
-      subtitle: "Ancient wisdom for modern health challenges",
-      buttonColor: "bg-purple-600",
-      discount: "Up to 30% off",
-      imageSrc: "/ayurveda.png",
-    },
-  ];
-
-  // Fetch billboards from API
   useEffect(() => {
     const fetchBillboards = async () => {
       try {
-        setLoading(true);
-        const data = await getBillboards();
-        if (data && data.length > 0) {
-          setBillboards(data);
-        }
+        const billboards = await getBillboards();
+        
+        // Convert billboards to promotion cards
+        const billboardPromotions: PromotionCard[] = billboards.map((billboard: Billboard, index) => ({
+          id: 1000 + index, // Use a distinct ID range
+          bgColor: getRandomBgColor(),
+          textColor: getRandomTextColor(),
+          title: billboard.label,
+          subtitle: "Featured promotion",
+          buttonColor: getRandomButtonColor(),
+          imageSrc: billboard.imageUrl,
+        }));
+        
+        // Combine static promotions with billboard promotions
+        const combined = [...staticPromotionCards, ...billboardPromotions];
+        setAllPromotions(combined);
+        setTotalSlides(combined.length);
       } catch (error) {
         console.error("Error fetching billboards:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchBillboards();
   }, []);
-
-  // Combine API billboards with static cards
-  const allPromotionItems = [
-    ...billboards.map((billboard, index) => ({
-      id: billboard.id,
-      bgColor: ["bg-orange-50", "bg-teal-50", "bg-purple-50"][index % 3],
-      textColor: ["text-orange-800", "text-teal-800", "text-purple-800"][index % 3],
-      title: billboard.label,
-      subtitle: "Check out our latest promotions",
-      buttonColor: ["bg-orange-600", "bg-teal-600", "bg-purple-600"][index % 3],
-      imageSrc: billboard.imageUrl,
-      discount: undefined
-    })),
-    ...staticPromotionCards,
-  ];
-
-  const totalSlides = allPromotionItems.length;
 
   useEffect(() => {
     // Auto slide function
@@ -119,24 +110,14 @@ export default function PromotionCarousel() {
   // Calculate visible cards (current + next)
   const startIndex = currentSlide;
   const endIndex = (currentSlide + 1) % totalSlides;
-  const visibleCards = [allPromotionItems[startIndex]];
+  const visibleCards = [allPromotions[startIndex]];
   
   // If not the last slide, add next card
   if (startIndex !== endIndex) {
-    visibleCards.push(allPromotionItems[endIndex]);
+    visibleCards.push(allPromotions[endIndex]);
   } else {
     // If we're showing the last slide, add the first one
-    visibleCards.push(allPromotionItems[0]);
-  }
-
-  if (loading) {
-    return (
-      <div className="bg-purple-400 py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center py-10">Loading promotions...</div>
-        </div>
-      </div>
-    );
+    visibleCards.push(allPromotions[0]);
   }
 
   return (
@@ -206,4 +187,29 @@ export default function PromotionCarousel() {
       </button>
     </div>
   );
+}
+
+// Helper functions to generate random colors for billboard promotions
+function getRandomBgColor(): string {
+  const colors = [
+    "bg-orange-50", "bg-teal-50", "bg-purple-50", 
+    "bg-blue-50", "bg-green-50", "bg-pink-50"
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function getRandomTextColor(): string {
+  const colors = [
+    "text-orange-800", "text-teal-800", "text-purple-800",
+    "text-blue-800", "text-green-800", "text-pink-800"
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function getRandomButtonColor(): string {
+  const colors = [
+    "bg-orange-600", "bg-teal-600", "bg-purple-600",
+    "bg-blue-600", "bg-green-600", "bg-pink-600"
+  ];
+  return colors[Math.floor(Math.random() * colors.length)];
 }

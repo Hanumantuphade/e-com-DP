@@ -1,3 +1,4 @@
+//components/CategoryTabs.tsx
 "use client"
 
 interface CategoryTabsProps {

@@ -1,15 +1,20 @@
+// components/PromotionCarousel.tsx
 "use client"
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Billboard } from "@/types";
+import { getBillboards } from "@/services/billboard-service";
 
 export default function PromotionCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [billboards, setBillboards] = useState<Billboard[]>([]);
+  const [loading, setLoading] = useState(true);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
-  const totalSlides = 4;
 
-  const promotionCards = [
+  // Static promotion cards as fallback
+  const staticPromotionCards = [
     {
       id: 1,
       bgColor: "bg-orange-50",
@@ -39,17 +44,43 @@ export default function PromotionCarousel() {
       discount: "Up to 30% off",
       imageSrc: "/ayurveda.png",
     },
-    {
-      id: 4,
-      bgColor: "bg-blue-50",
-      textColor: "text-blue-800",
-      title: "Immunity Boosters",
-      subtitle: "Strengthen your immune system naturally",
-      buttonColor: "bg-blue-600",
-      discount: "Buy 1 Get 1 Free",
-      imageSrc: "/ibooster.png",
-    },
   ];
+
+  // Fetch billboards from API
+  useEffect(() => {
+    const fetchBillboards = async () => {
+      try {
+        setLoading(true);
+        const data = await getBillboards();
+        if (data && data.length > 0) {
+          setBillboards(data);
+        }
+      } catch (error) {
+        console.error("Error fetching billboards:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBillboards();
+  }, []);
+
+  // Combine API billboards with static cards
+  const allPromotionItems = [
+    ...billboards.map((billboard, index) => ({
+      id: billboard.id,
+      bgColor: ["bg-orange-50", "bg-teal-50", "bg-purple-50"][index % 3],
+      textColor: ["text-orange-800", "text-teal-800", "text-purple-800"][index % 3],
+      title: billboard.label,
+      subtitle: "Check out our latest promotions",
+      buttonColor: ["bg-orange-600", "bg-teal-600", "bg-purple-600"][index % 3],
+      imageSrc: billboard.imageUrl,
+      discount: undefined
+    })),
+    ...staticPromotionCards,
+  ];
+
+  const totalSlides = allPromotionItems.length;
 
   useEffect(() => {
     // Auto slide function
@@ -64,7 +95,7 @@ export default function PromotionCarousel() {
     return () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     };
-  }, []);
+  }, [totalSlides]);
 
   const goToSlide = (slideIndex: number) => {
     setCurrentSlide(slideIndex);
@@ -88,14 +119,24 @@ export default function PromotionCarousel() {
   // Calculate visible cards (current + next)
   const startIndex = currentSlide;
   const endIndex = (currentSlide + 1) % totalSlides;
-  const visibleCards = [promotionCards[startIndex]];
+  const visibleCards = [allPromotionItems[startIndex]];
   
   // If not the last slide, add next card
   if (startIndex !== endIndex) {
-    visibleCards.push(promotionCards[endIndex]);
+    visibleCards.push(allPromotionItems[endIndex]);
   } else {
     // If we're showing the last slide, add the first one
-    visibleCards.push(promotionCards[0]);
+    visibleCards.push(allPromotionItems[0]);
+  }
+
+  if (loading) {
+    return (
+      <div className="bg-purple-400 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center py-10">Loading promotions...</div>
+        </div>
+      </div>
+    );
   }
 
   return (

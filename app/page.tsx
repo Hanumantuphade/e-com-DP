@@ -1,3 +1,4 @@
+// app/page.tsx
 "use client";
 
 import { useState } from "react";
@@ -6,6 +7,7 @@ import HeroBanner from "@/components/HeroBanner";
 import PromotionCarousel from "@/components/PromotionCarousel";
 import CategorySection from "@/components/CategorySection";
 import ProductSection from "@/components/ProductSection";
+import DiscountSection from "@/components/DiscountSection";
 import ServiceFeatures from "@/components/ServiceFeatures";
 import CustomerTestimonials from "@/components/CustomerTestimonials";
 import Footer from "@/components/Footer";
@@ -13,30 +15,30 @@ import ContactReview from "@/components/ContactReview";
 
 // Define category data
 const categoryData = [
-  { 
-    id: "all", 
-    name: "All Products", 
-    image: "/logo1.png" 
+  {
+    id: "all",
+    name: "All Products",
+    image: "/logo1.png"
   },
-  { 
-    id: "ayurveda", 
-    name: "Ayurveda", 
-    image: "/ayu.png" 
+  {
+    id: "e932d5a2-cd99-4ec2-b798-3a9393495610", // Ayurveda category ID from API
+    name: "Ayurveda",
+    image: "/ayu.png"
   },
-  { 
-    id: "skin-care", 
-    name: "Skin Care", 
-    image: "/skin.png" 
+  {
+    id: "skin-care",
+    name: "Skin Care",
+    image: "/skin.png"
   },
-  { 
-    id: "cough", 
-    name: "Cold & Cough", 
-    image: "/cold.png" 
+  {
+    id: "cough",
+    name: "Cold & Cough",
+    image: "/cold.png"
   },
-  { 
-    id: "baby", 
-    name: "Baby Care", 
-    image: "/baby.png" 
+  {
+    id: "baby",
+    name: "Baby Care",
+    image: "/baby.png"
   }
 ];
 
@@ -62,6 +64,9 @@ export default function Home() {
         title="Featured Products"
         category={activeCategory}
       />
+      
+      {/* Discount Section */}
+      <DiscountSection title="Top Discounts" />
       
       <ServiceFeatures />
       <CustomerTestimonials />

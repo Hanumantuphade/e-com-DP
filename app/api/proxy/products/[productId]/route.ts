@@ -13,11 +13,12 @@ export async function GET(
     const API_URL = `https://pharma-admin.vercel.app/api/${STORE_ID}/products/${productId}`;
 
     const response = await fetch(API_URL, {
-      cache: 'no-store',
       headers: {
         'Content-Type': 'application/json',
       },
+      next: { revalidate: 60 },
     });
+    
 
     if (!response.ok) {
       throw new Error(`API responded with status: ${response.status}`);

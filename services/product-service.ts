@@ -68,3 +68,4 @@ export const getDiscountedProducts = async (): Promise<Product[]> => {
     throw error;
   }
 };
+

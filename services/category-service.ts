@@ -1,12 +1,9 @@
+//services/category-service.ts
 import { CategoryWithImage } from "@/types";
 
 // Define hardcoded category data with IDs matching the API responses
 export const categoryData: CategoryWithImage[] = [
-  {
-    id: "all",
-    name: "All Products",
-    image: "/logo1.png"
-  },
+  
   {
     id: "e932d5a2-cd99-4ec2-b798-3a9393495610", // This ID matches the Ayurveda category in the API
     name: "Ayurveda",

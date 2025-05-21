@@ -1,8 +1,9 @@
 //components/CategorySection.tsx
-//
+
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { CategoryWithImage } from "@/types";
 import { getCategories } from "@/services/category-service";
 
@@ -18,6 +19,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({
   setActiveCategory,
 }) => {
   const [categories, setCategories] = useState<CategoryWithImage[]>(initialCategories);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -30,14 +32,27 @@ const CategorySection: React.FC<CategorySectionProps> = ({
     };
     fetchCategories();
   }, []);
-  // bg-blue-300 py-10
+
+  // Handle category click - navigates to category page
+  const handleCategoryClick = (categoryId: string) => {
+    setActiveCategory(categoryId);
+    
+    // Special handling for "all" category
+    if (categoryId === "all") {
+      router.push('/allproducts');
+    } else {
+      // Navigate to specific category page
+      router.push(`/category/${categoryId}`);
+    }
+  };
+
   return (
     <section className="py-10 bg-gradient-to-r from-blue-300 to-blue-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold text-center text-gray-900 mb-2">
           Shop by Category
         </h2>
-        <p className="text-center text-green-300 mb-8">Select a category to explore our products</p>
+        <p className="text-center text-gray-700 mb-8">Select a category to explore our products</p>
         
         <div className="relative">
           {/* Arrow indicators for mobile */}
@@ -56,7 +71,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({
                 return (
                   <div
                     key={category.id}
-                    onClick={() => setActiveCategory(category.id)}
+                    onClick={() => handleCategoryClick(category.id)}
                     className={`flex-shrink-0 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 px-4 py-3 rounded-xl
                       ${
                         activeCategory === category.id

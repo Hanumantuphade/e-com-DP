@@ -1,6 +1,3 @@
-// components/TopDiscounts.tsx
-"use client";
-
 "use client";
 import { useEffect, useState, useRef } from "react";
 import { Product } from "@/types";
@@ -35,7 +32,7 @@ const TopDiscounts: React.FC = () => {
   const scroll = (direction: "left" | "right") => {
     if (sliderRef.current) {
       const { scrollWidth, clientWidth } = sliderRef.current;
-      const scrollAmount = clientWidth * 0.8; // Scroll 80% of visible width
+      const scrollAmount = clientWidth * 0.8;
       
       if (direction === "left") {
         sliderRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
@@ -50,7 +47,7 @@ const TopDiscounts: React.FC = () => {
   // Loading state
   if (loading) {
     return (
-      <section className="py-12 bg-gradient-to-r from-red-50 to-orange-50">
+      <section className="py-12 bg-gradient-to-r from-red-50 to-orange-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center mb-8">
             <h2 className="text-2xl font-bold text-gray-800">Top Discounts</h2>
@@ -68,6 +65,10 @@ const TopDiscounts: React.FC = () => {
             ))}
           </div>
         </div>
+        {/* Animated separator */}
+        <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-red-400 to-orange-400 overflow-hidden">
+          <div className="h-full w-1/3 bg-gradient-to-r from-transparent via-white to-transparent animate-shimmer"></div>
+        </div>
       </section>
     );
   }
@@ -75,10 +76,14 @@ const TopDiscounts: React.FC = () => {
   // Error state
   if (error) {
     return (
-      <section className="py-12 bg-gradient-to-r from-red-50 to-orange-50">
+      <section className="py-12 bg-gradient-to-r from-red-50 to-orange-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">Top Discounts</h2>
           <p className="text-red-500 text-center">{error}</p>
+        </div>
+        {/* Animated separator */}
+        <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-red-400 to-orange-400 overflow-hidden">
+          <div className="h-full w-1/3 bg-gradient-to-r from-transparent via-white to-transparent animate-shimmer"></div>
         </div>
       </section>
     );
@@ -86,7 +91,7 @@ const TopDiscounts: React.FC = () => {
 
   // No discounted products
   if (discountedProducts.length === 0) {
-    return null; // Don't show the section if there are no discounted products
+    return null;
   }
 
   // Sort products by discount percentage (highest first)
@@ -97,7 +102,7 @@ const TopDiscounts: React.FC = () => {
   });
 
   return (
-    <section className="py-12 bg-gradient-to-r from-red-200 to-pink-200">
+    <section className="bg-gradient-to-tr from-blue-400 to-red-300 py-12 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative pb-4">
           {/* Top section with title and navigation */}
@@ -141,6 +146,25 @@ const TopDiscounts: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* Sleek animated separator at bottom */}
+      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-600 via-purple-500 to-red-400 overflow-hidden">
+        <div className="h-full w-1/3 bg-gradient-to-r from-transparent via-white/80 to-transparent animate-shimmer"></div>
+      </div>
+
+      <style jsx>{`
+        @keyframes shimmer {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(300%);
+          }
+        }
+        .animate-shimmer {
+          animation: shimmer 3s ease-in-out infinite;
+        }
+      `}</style>
     </section>
   );
 };

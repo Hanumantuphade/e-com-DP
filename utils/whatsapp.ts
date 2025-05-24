@@ -92,7 +92,7 @@ import { Product } from "@/types";
 import { formatPrice } from "@/utils/format";
 import { calculateDiscountedPrice } from "@/services/discount-service";
 
-const WHATSAPP_BUSINESS_NUMBER = "917206234875";
+const WHATSAPP_BUSINESS_NUMBER = "9621622513";
 
 /**
  * Creates a WhatsApp URL with pre-filled message for product inquiry

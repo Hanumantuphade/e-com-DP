@@ -5,9 +5,8 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { ChevronDown, Award, Clock, Users, Heart, MapPin, Phone } from "lucide-react";
+import { ChevronDown, Award, Heart, Users, MapPin, Phone, Clock } from "lucide-react";
 import Link from "next/link";
-
 
 export default function AboutUs() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -39,32 +38,8 @@ export default function AboutUs() {
     });
   };
 
-  // Timeline data
-  const timelineEvents = [
-    {
-      year: "2022",
-      title: "Foundation",
-      description: "Dua Pharmacy was established in Thanesar with a vision to provide accessible healthcare solutions to the local community."
-    },
-    {
-      year: "2023",
-      title: "Expanding",
-      description: "Planning to expand our services with specialized healthcare solutions and personalized medicine consultations."
-    },
-    {
-      year: "2024",
-      title: "Community Outreach",
-      description: "Initiated health awareness programs and free medical camps in collaboration with local healthcare professionals."
-    },
-    {
-        year: "2025",
-        title: "Digital Expansion",
-        description: "Launched our online platform to extend our services beyond physical boundaries, making healthcare more accessible."
-      },
-  ];
-
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-gradient-to-r from-green-300 to-blue-300 overflow-hidden min-h-screen">
       <Header />
 
       {/* Animated Banner Section */}
@@ -135,7 +110,7 @@ export default function AboutUs() {
                 <div className="absolute -inset-4 bg-gradient-to-r from-green-200 to-blue-200 rounded-2xl transform -rotate-3 opacity-70"></div>
                 <div className="relative overflow-hidden rounded-xl shadow-2xl">
                   <Image
-                    src="/pharmacy-store.jpg" // Replace with your actual image
+                    src="/pharmacy-store.jpg"
                     alt="Dua Pharmacy Store"
                     width={600}
                     height={400}
@@ -210,56 +185,6 @@ export default function AboutUs() {
           </div>
         </motion.div>
         
-        {/* Timeline Section */}
-        <div className="mb-24">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Journey</h2>
-            <div className="h-1 w-20 bg-green-500 mx-auto mb-8"></div>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              From our humble beginnings to where we are today, every step has been guided by our commitment to excellence in healthcare.
-            </p>
-          </div>
-          
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-green-200"></div>
-            
-            {/* Timeline events */}
-            <div className="relative">
-              {timelineEvents.map((event, index) => (
-                <div 
-                  key={index}
-                  className={`flex flex-col md:flex-row items-center mb-16 ${
-                    index % 2 === 0 ? 'md:flex-row-reverse' : ''
-                  }`}
-                >
-                  <div className="md:w-1/2 mb-8 md:mb-0 flex justify-center md:justify-end md:pr-12">
-                    <div className={`bg-gradient-to-br ${
-                      index % 2 === 0 ? 'from-blue-50 to-blue-100' : 'from-green-50 to-green-100'
-                    } p-6 rounded-xl shadow-lg max-w-md`}>
-                      <div className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600 mb-4">
-                        {event.year}
-                      </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-3">{event.title}</h3>
-                      <p className="text-gray-700">{event.description}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="relative flex items-center justify-center z-10">
-                    <div className="h-12 w-12 rounded-full bg-white border-4 border-green-500 flex items-center justify-center shadow-lg">
-                      <div className="h-4 w-4 rounded-full bg-green-500"></div>
-                    </div>
-                  </div>
-                  
-                  <div className="md:w-1/2 md:pl-12">
-                    {/* Empty div for layout */}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        
         {/* Our Values Section */}
         <motion.div 
           ref={valuesRef}
@@ -309,6 +234,7 @@ export default function AboutUs() {
           </div>
         </motion.div>
         
+        {/* Meet Our Team (Single Member) */}
         <motion.div 
           ref={teamRef}
           className="mb-24"
@@ -324,12 +250,11 @@ export default function AboutUs() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Team Member 1 */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden group">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden group col-span-1 md:col-start-2">
               <div className="relative h-80 overflow-hidden">
                 <Image
-                  src="/team-member1.jpg" // Replace with actual image
+                  src="/team-member1.jpg"
                   alt="Team Member"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -341,45 +266,6 @@ export default function AboutUs() {
                 <p className="text-green-600 font-medium mb-4">Lead Pharmacist</p>
                 <p className="text-gray-700">
                   With over 15 years of experience in pharmaceutical care, Dr. Kumar leads our team with expertise and compassion.
-                </p>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden group">
-              <div className="relative h-80 overflow-hidden">
-                <Image
-                  src="/team-member2.jpg" // Replace with actual image
-                  alt="Team Member"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-green-900 to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-1">Priya Sharma</h3>
-                <p className="text-green-600 font-medium mb-4">Pharmacy Manager</p>
-                <p className="text-gray-700">
-                  Priya ensures our operations run smoothly while maintaining our commitment to exceptional customer service.
-                </p>
-              </div>
-            </div>
-            
-            {/* Team Member 3 */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden group">
-              <div className="relative h-80 overflow-hidden">
-                <Image
-                  src="/team-member3.jpg" // Replace with actual image
-                  alt="Team Member"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-green-900 to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-1">Amit Verma</h3>
-                <p className="text-green-600 font-medium mb-4">Healthcare Consultant</p>
-                <p className="text-gray-700">
-                  Amit specializes in providing personalized health advice and medication counseling to our customers.
                 </p>
               </div>
             </div>
@@ -410,13 +296,13 @@ export default function AboutUs() {
               </div>
             </div>
             <div className="md:w-1/3 flex justify-center md:justify-end">
-  <Link 
-    href="/contact"
-    className="bg-white text-green-600 px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all inline-block"
-  >
-    Contact Us
-  </Link>
-</div>
+              <Link 
+                href="/contact"
+                className="bg-white text-green-600 px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all inline-block"
+              >
+                Contact Us
+              </Link>
+            </div>
           </div>
         </div>
       </div>

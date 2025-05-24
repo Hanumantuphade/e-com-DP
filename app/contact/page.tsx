@@ -30,7 +30,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-gradient-to-r from-blue-200 to-red-100 min-h-screen">
       <Header />
 
       {/* Hero Banner */}

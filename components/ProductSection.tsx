@@ -144,7 +144,7 @@ const ProductSection: React.FC<ProductSectionProps> = ({
 
   // For regular category-filtered products with grid layout
   return (
-    <section className="py-10 bg-gray-50">
+    <section className="py-10 bg-gradient-to-r from-red-300 to-blue-300 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">{title}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

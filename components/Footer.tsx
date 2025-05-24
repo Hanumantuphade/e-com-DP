@@ -185,31 +185,6 @@ export default function Footer() {
               </div>
             </div>
           </div>
-          
-          {/* Payment partners section */}
-          <div className="border-t border-green-400 pt-10 relative">
-            <h3 className="font-bold text-gray-900 mb-6 text-center">
-              <span className="bg-gradient-to-r from-green-700 to-blue-600 bg-clip-text text-transparent">OUR PAYMENT PARTNERS</span>
-            </h3>
-            <div className="flex flex-wrap justify-center gap-6 mb-10">
-              {[
-                "google-pay", "phonepe", "rupay", "paytm", 
-                "visa", "stripe", "mastercard"
-              ].map((partner, index) => (
-                <div 
-                  key={index} 
-                  className="transform hover:-translate-y-1 hover:shadow-md transition-all duration-300 bg-white p-3 rounded-lg"
-                >
-                  <Image 
-                    src={`/${partner}.png`} 
-                    alt={partner.charAt(0).toUpperCase() + partner.slice(1).replace("-", " ")} 
-                    width={60} 
-                    height={30}
-                    className="object-contain"
-                  />
-                </div>
-              ))}
-            </div>
             
             {/* Copyright section with animated border */}
             <div className="text-center relative">
@@ -227,7 +202,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
+      {/* </div> */}
       
       {/* Scroll to top button */}
       <button 

@@ -196,7 +196,7 @@ export default function ServiceFeatures() {
           titleVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'
         }`}>
           {[
-            { number: "500K+", label: "Happy Customers", icon: <Heart className="w-5 h-5 lg:w-6 lg:h-6 text-red-500" /> },
+            { number: "100K+", label: "Happy Customers", icon: <Heart className="w-5 h-5 lg:w-6 lg:h-6 text-red-500" /> },
             { number: "24/7", label: "Support Available", icon: <Shield className="w-5 h-5 lg:w-6 lg:h-6 text-green-500" /> },
             { number: "100%", label: "Delivery Success", icon: <Star className="w-5 h-5 lg:w-6 lg:h-6 text-yellow-500" /> }
           ].map((stat, index) => (

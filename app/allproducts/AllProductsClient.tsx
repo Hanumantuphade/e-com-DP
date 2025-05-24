@@ -126,7 +126,7 @@ export default function AllProductsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-gradient-to-tr from-red-300 to-blue-300">
       <Header />
       
       {/* Page Header */}

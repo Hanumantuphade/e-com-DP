@@ -7,7 +7,7 @@ import { Heart, ShoppingCart, Tag, ExternalLink, Sparkles } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
 import { calculateDiscountedPrice } from "@/services/discount-service";
-import { createProductSearchUrl } from "@/utils/google-search";
+import { openWhatsAppChat } from "@/utils/whatsapp";
 
 interface DiscountProductCardProps {
   product: Product;
@@ -28,17 +28,12 @@ const DiscountProductCard: React.FC<DiscountProductCardProps> = ({ product }) =>
   // Calculate amount saved
   const amountSaved = originalPrice - discountedPrice;
   
-  // Handle buy now button click
+  // Handle buy now button click - Open WhatsApp
   const handleBuyNowClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
-    const searchUrl = createProductSearchUrl(
-      product.name,
-      product.category?.name
-    );
-    
-    window.open(searchUrl, '_blank', 'noopener,noreferrer');
+    openWhatsAppChat(product);
   };
 
   const handleLikeClick = (e: React.MouseEvent) => {
@@ -132,8 +127,9 @@ const DiscountProductCard: React.FC<DiscountProductCardProps> = ({ product }) =>
           </div>
           
           <button
-            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-red-500/25 active:scale-95 flex items-center gap-1"
+            className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-green-500/25 active:scale-95 flex items-center gap-1"
             onClick={handleBuyNowClick}
+            title="Chat on WhatsApp"
           >
             <ShoppingCart className="h-3 w-3" />
             Buy Now

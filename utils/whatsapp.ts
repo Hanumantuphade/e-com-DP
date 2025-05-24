@@ -113,13 +113,10 @@ export const createWhatsAppUrl = (product: Product): string => {
   // Create the message text
   let message = `Hi! I'm interested in this product:\n\n`;
   
-  // Include product image URL if available
-  if (productImage && productImage !== "/placeholder.png") {
-    message += `🖼️ Product Image: ${productImage}\n\n`;
-  }
+  
   
   message += `🛍️ *${product.name}*\n`;
-  message += `🆔 Product ID: ${product.id}\n`;
+  
   
   if (product.category?.name) {
     message += `📂 Category: ${product.category.name}\n`;
@@ -137,16 +134,16 @@ export const createWhatsAppUrl = (product: Product): string => {
   if (discountPercentage > 0) {
     message += `💰 Price: ${formatPrice(finalPrice)} `;
     message += `(${discountPercentage}% OFF from ${formatPrice(originalPrice)})\n`;
-    message += `💸 You Save: ${formatPrice(originalPrice - finalPrice)}\n`;
+    message += `💸 Total Savings: ${formatPrice(originalPrice - finalPrice)}\n`;
   } else {
     message += `💰 Price: ${formatPrice(finalPrice)}\n`;
   }
 
-  message += `\nCould you please provide more details about availability and delivery?`;
-  
-  // Add a note about the image
+  message += `\nCould you please provide more details about availability and delivery?\n\n`;
+  message += `🆔 Product ID: ${product.id}\n`;
+  // Include product image URL if available
   if (productImage && productImage !== "/placeholder.png") {
-    message += `\n\n📌 *Note: Product image link is included above for your reference.*`;
+    message += `🖼️ Product Image: ${productImage}\n\n`;
   }
 
   // Encode the message for URL

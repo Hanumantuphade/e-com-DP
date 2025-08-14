@@ -89,13 +89,7 @@ export default function Gallery() {
             animate={{ scale: 1, rotate: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <Image
-              src="/dua_pharmacy_logo.svg"
-              alt="Dua Pharmacy Logo"
-              width={60}
-              height={60}
-              className="p-2"
-            />
+            <Camera className="h-10 w-10 text-white" />
           </motion.div>
 
           <motion.h1
@@ -154,12 +148,12 @@ export default function Gallery() {
             Visit Us Today
           </h2>
 
-          <p className="text-base sm:text-lg md:text-xl text-gray-200 mb-6 sm:mb-8 max-w-2xl mx-auto">
+          <p className="text-base text-black sm:text-lg md:text-xl  mb-6 sm:mb-8 max-w-2xl mx-auto">
             Experience the difference at Dua Pharmacy. Your health and wellbeing
             are our top priorities.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 items-center justify-center text-gray-200 mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 items-center justify-center text-black mb-6 sm:mb-8">
             <div className="flex items-center text-center sm:text-left">
               <MapPin className="h-5 w-5 mr-2" />
               <span className="text-sm sm:text-base leading-snug">

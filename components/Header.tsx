@@ -26,7 +26,7 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <div className="relative h-16 w-48">
               <Image
-                src="/logo1.png"
+                src="/logo.svg"
                 alt="DUA Pharmacy"
                 fill
                 sizes="(max-width: 768px) 12rem, 14rem"
@@ -80,7 +80,7 @@ export default function Header() {
       </div>
 
       {/* Main Navigation */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+      <div className="bg-transparent text-gray-800">
         <div className="container mx-auto">
           <nav className="flex justify-center">
             {[
@@ -93,7 +93,7 @@ export default function Header() {
               <Link
                 key={idx}
                 href={item.path}
-                className="px-8 py-4 hover:bg-blue-700 transition-colors text-base font-medium text-center flex-1"
+                className="px-8 py-4 hover:text-green-600 transition-colors text-lg font-medium text-center flex-1"
               >
                 {item.name}
               </Link>

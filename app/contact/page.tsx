@@ -34,9 +34,10 @@ export default function ContactPage() {
       <Header />
 
       {/* Hero Banner */}
-      <div className="relative bg-gradient-to-r from-green-600 to-green-800 py-24 overflow-hidden">
+      <div className="relative bg-gradient-to-r from-green-600 to-green-800 min-h-[450px] md:min-h-[450px]lg:min-h-screen py-24 overflow-hidden">
+        <img className="absolute  inset-0 w-full h-full object-cover z-0" src="/c1.png" alt="" />
         {/* Decorative Elements */}
-        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></div>
+        <div className="absolute top-0 left-0 w-full h-1 to-purple-600"></div>
         <div className="absolute top-10 left-10 w-40 h-40 bg-green-300 rounded-full opacity-10"></div>
         <div className="absolute bottom-10 right-10 w-60 h-60 bg-blue-300 rounded-full opacity-10"></div>
         <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-green-400 rounded-full opacity-10"></div>
@@ -51,7 +52,7 @@ export default function ContactPage() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
               Contact Us
             </h1>
-            <p className="text-xl text-green-100 max-w-3xl mx-auto">
+            <p className="text-xl text-black max-w-3xl mx-auto">
               We're here to help you with all your healthcare needs. Reach out to us anytime.
             </p>
           </motion.div>

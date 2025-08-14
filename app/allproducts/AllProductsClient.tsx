@@ -130,16 +130,35 @@ export default function AllProductsPage() {
       <Header />
       
       {/* Page Header */}
-      <div className="bg-gradient-to-r from-green-300 to-green-200 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-4xl font-bold text-center text-gray-800">
-            Our Products
+      <section className="relative  w-full h-[300px] min-h-[500px] overflow-hidden">
+      {/* Background Video */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        preload="auto"
+        playsInline
+        loop
+        muted
+        autoPlay
+      >
+        <source src="/product.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black bg-opacity-40 z-10" />
+
+      {/* Centered Text Content */}
+      <div className="relative z-20 flex items-center justify-center h-full px-4 sm:px-6 text-center">
+        <div className=" bg-opacity-60 p-4 sm:p-6 rounded-xl max-w-[90%] sm:max-w-2xl mx-auto">
+          <h1 className="text-white text-2xl sm:text-4xl lg:text-5xl font-bold mb-3 leading-tight">
+           Our Products
           </h1>
-          <p className="mt-4 text-xl text-center text-gray-700">
+          <p className="text-white text-base sm:text-lg">
             Browse our complete collection of high-quality products
           </p>
         </div>
       </div>
+    </section>
       
       {/* Filters and Products Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

@@ -39,7 +39,7 @@ export default function AboutUs() {
   };
 
   return (
-    <div className="bg-gradient-to-r from-green-300 to-blue-300 overflow-hidden min-h-screen">
+    <div className="bg-gradient-to-r from-blue-200 to-red-100 overflow-hidden min-h-screen">
       <Header />
 
       {/* Animated Banner Section */}
@@ -55,13 +55,13 @@ export default function AboutUs() {
           style={{ scale, opacity }}
         >
           <Image
-            src="/logo1.png" 
+            src="/a1.png" 
             alt="Dua Pharmacy"
             fill
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-green-900/60 to-green-900/80 mix-blend-multiply" />
+          <div className="absolute inset-0 mix-blend-multiply" />
         </motion.div>
 
         <motion.div 
@@ -110,7 +110,7 @@ export default function AboutUs() {
                 <div className="absolute -inset-4 bg-gradient-to-r from-green-200 to-blue-200 rounded-2xl transform -rotate-3 opacity-70"></div>
                 <div className="relative overflow-hidden rounded-xl shadow-2xl">
                   <Image
-                    src="/pharmacy-store.jpg"
+                    src="/image1.png"
                     alt="Dua Pharmacy Store"
                     width={600}
                     height={400}
@@ -254,7 +254,7 @@ export default function AboutUs() {
             <div className="bg-white rounded-xl shadow-lg overflow-hidden group col-span-1 md:col-start-2">
               <div className="relative h-80 overflow-hidden">
                 <Image
-                  src="/team-member1.jpg"
+                  src="/m1.jpg"
                   alt="Team Member"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"

@@ -34,7 +34,7 @@ export default function ContactPage() {
       <Header />
 
       {/* Hero Banner */}
-      <div className="relative bg-gradient-to-r from-green-600 to-green-800 min-h-[450px] md:min-h-[450px]lg:min-h-screen py-24 overflow-hidden">
+      <div className="relative bg-gradient-to-r from-green-600 to-green-800 min-h-screen md:min-h-screen lg:min-h-screen py-24 overflow-hidden">
         <img className="absolute  inset-0 w-full h-full object-cover z-0" src="/c1.png" alt="" />
         {/* Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-1 to-purple-600"></div>
@@ -42,7 +42,7 @@ export default function ContactPage() {
         <div className="absolute bottom-10 right-10 w-60 h-60 bg-blue-300 rounded-full opacity-10"></div>
         <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-green-400 rounded-full opacity-10"></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative top-24 z-10">
           <motion.div 
             className="text-center"
             initial={{ opacity: 0, y: 30 }}

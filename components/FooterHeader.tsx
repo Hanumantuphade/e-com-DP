@@ -38,14 +38,14 @@ const FooterHeader: React.FC = () => {
           <div className="inline-block mb-8">
             <div className="relative">
               <Image 
-                src="/logo1.png" 
+                src="/logo.svg" 
                 alt="Dua Pharmacy Illustration"
                 width={300}
                 height={150}
                 className="object-contain filter drop-shadow-md hover:scale-105 transition-transform duration-300"
               />
-              <div className="absolute -bottom-4 w-full">
-                <div className="h-1 w-40 bg-gradient-to-r from-green-400 to-blue-500 mx-auto rounded-full"></div>
+              <div className="absolute -bottom-6 w-full">
+                <div className="h-1 w-72 bg-gradient-to-r from-green-400 to-blue-500 mx-auto rounded-full"></div>
               </div>
             </div>
           </div>

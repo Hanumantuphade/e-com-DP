@@ -18,7 +18,7 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full sticky top-0 z-50 shadow-lg">
+    <header className="w-full fixed top-0 z-50 shadow-lg">
       {/* Top Bar with Logo and Search */}
       <div className="bg-white w-full border-b">
         <div className="container mx-auto flex items-center justify-between py-2 px-4">

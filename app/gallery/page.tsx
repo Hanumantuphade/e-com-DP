@@ -79,10 +79,10 @@ export default function Gallery() {
       <Header />
 
       {/* Gallery Title Section */}
-      <div className="relative bg-gradient-to-br from-green-600 to-blue-600 py-20 sm:py-24 overflow-hidden">
+      <div className="relative bg-gradient-to-br min-h-screen from-green-600 to-blue-600 py-20 sm:py-24 overflow-hidden">
         <Image src="/gallery/g4.png" alt="" fill className="object-cover z-0" />
         <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative max-w-4xl mx-auto text-center px-4">
+        <div className="relative top-16 max-w-4xl mx-auto text-center px-4">
           <motion.div
             className="flex items-center justify-center w-20 h-20 bg-white/20 backdrop-blur-sm rounded-full mb-6 sm:mb-8 mx-auto"
             initial={{ scale: 0, rotate: -180 }}

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function HeroBanner() {
   return (
-    <section className="relative -top-24 w-full h-screen min-h-[600px] overflow-hidden">
+    <section className="relative w-full h-screen min-h-[600px] overflow-hidden">
       {/* Background Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover z-0"
@@ -23,7 +23,7 @@ export default function HeroBanner() {
       <div className="absolute inset-0 bg-black bg-opacity-40 z-10" />
 
       {/* Centered Text Content */}
-      <div className="relative z-20 flex items-center justify-center h-full px-4 sm:px-6 text-center">
+      <div className="relative top-16 z-20 flex items-center justify-center h-full px-4 sm:px-6 text-center">
         <div className=" bg-opacity-60 p-4 sm:p-6 rounded-xl max-w-[90%] sm:max-w-2xl mx-auto">
           <h1 className="text-white text-2xl sm:text-4xl lg:text-5xl font-bold mb-3 leading-tight">
             Order medicines from Dua Pharmacy at the best prices

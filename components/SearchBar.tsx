@@ -22,7 +22,7 @@ export default function SearchBar() {
       <input
         type="text"
         placeholder="Search for Medicines, Products, Brands & More"
-        className="w-full py-3 px-5 border-2 border-blue-200 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm text-gray-700 font-medium"
+        className="w-full py-3 px-5 border-[1px] border-blue-200 rounded-full outline-none focus:outline-none focus:ring-[1px] focus:ring-blue-300 focus:border-blue-300 shadow-sm text-gray-700 font-medium"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />

@@ -48,7 +48,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({
           {/* Background image */}
     <img
       className="absolute inset-0 w-full h-full object-cover z-0"
-      src="/ct1.png"
+      src="/p4.png"
       alt=""
     />
 

@@ -128,7 +128,7 @@ export default function PromotionCarousel() {
       {/* Background image */}
       <img
         className="absolute  inset-0 w-full min-h-screen object-cover z-0"
-        src="/a1.png"
+        src="/p2.jpg"
         alt=""
       />
 

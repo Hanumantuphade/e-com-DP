@@ -21,7 +21,7 @@ export default function SearchBar() {
     <form onSubmit={handleSubmit} className="relative w-full">
       <input
         type="text"
-        placeholder="Search for Medicines, Products, Brands & More"
+        placeholder="Search medicines & more"
         className="w-full py-3 px-5 border-[1px] border-blue-200 rounded-full outline-none focus:outline-none focus:ring-[1px] focus:ring-blue-300 focus:border-blue-300 shadow-sm text-gray-700 font-medium"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}

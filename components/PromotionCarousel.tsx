@@ -51,10 +51,9 @@ export default function PromotionCarousel() {
       try {
         const billboards = await getBillboards();
 
-        // Convert billboards to promotion cards
         const billboardPromotions: PromotionCard[] = billboards.map(
           (billboard: Billboard, index) => ({
-            id: 1000 + index, // Use a distinct ID range
+            id: 1000 + index,
             bgColor: getRandomBgColor(),
             textColor: getRandomTextColor(),
             title: billboard.label,
@@ -64,7 +63,6 @@ export default function PromotionCarousel() {
           })
         );
 
-        // Combine static promotions with billboard promotions
         const combined = [...staticPromotionCards, ...billboardPromotions];
         setAllPromotions(combined);
         setTotalSlides(combined.length);
@@ -77,15 +75,12 @@ export default function PromotionCarousel() {
   }, []);
 
   useEffect(() => {
-    // Auto slide function
     const autoSlide = () => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
     };
 
-    // Start auto sliding
     autoPlayRef.current = setInterval(autoSlide, 5000);
 
-    // Cleanup interval on component unmount
     return () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     };
@@ -93,7 +88,6 @@ export default function PromotionCarousel() {
 
   const goToSlide = (slideIndex: number) => {
     setCurrentSlide(slideIndex);
-    // Reset the interval whenever manual navigation happens
     if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     autoPlayRef.current = setInterval(() => {
       setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
@@ -110,42 +104,43 @@ export default function PromotionCarousel() {
     goToSlide(nextSlide);
   };
 
-  // Calculate visible cards (current + next)
   const startIndex = currentSlide;
   const endIndex = (currentSlide + 1) % totalSlides;
   const visibleCards = [allPromotions[startIndex]];
 
-  // If not the last slide, add next card
   if (startIndex !== endIndex) {
     visibleCards.push(allPromotions[endIndex]);
   } else {
-    // If we're showing the last slide, add the first one
     visibleCards.push(allPromotions[0]);
   }
 
   return (
-    <div className=" py-8 mt-14 mx-5 rounded-xl  relative overflow-hidden">
-      {/* Background image */}
+    <div className="relative py-8 mt-14 mx-3 sm:mx-5 rounded-xl overflow-hidden">
+      {/* Background */}
       <img
-        className="absolute  inset-0 w-full min-h-screen object-cover z-0"
+        className="absolute inset-0 w-full h-full object-cover z-0"
         src="/p2.jpg"
         alt=""
       />
 
-      {/* Content wrapper - keep above image */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4  sm:px-6 lg:px-8">
-        <div className="flex space-x-4 items-center overflow-hidden">
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div className="flex flex-col sm:flex-row sm:space-x-4 items-stretch justify-center">
           {visibleCards.map((card) => (
             <div
               key={card.id}
-              className={`min-w-[48%] min-h[50%] ${card.bgColor} rounded-lg p-6 flex flex-col shadow-md transition-all duration-300`}
+              className={`w-full sm:w-1/2 ${card.bgColor} rounded-lg p-6 flex flex-col mb-4 sm:mb-0 shadow-md transition-all duration-300`}
             >
               <div className="mb-2 flex justify-between items-start">
                 <div>
-                  <h3 className={`text-xl font-bold ${card.textColor}`}>
+                  <h3
+                    className={`text-lg sm:text-xl font-bold ${card.textColor}`}
+                  >
                     {card.title}
                   </h3>
-                  <p className={`${card.textColor} opacity-90`}>
+                  <p
+                    className={`text-sm sm:text-base ${card.textColor} opacity-90`}
+                  >
                     {card.subtitle}
                   </p>
                 </div>
@@ -155,15 +150,17 @@ export default function PromotionCarousel() {
                   </div>
                 )}
               </div>
+
               <div className="flex-1 flex items-center justify-center py-4">
                 <Image
                   src={card.imageSrc}
                   alt={card.title}
-                  width={300}
-                  height={150}
-                  className="object-contain"
+                  width={500}
+                  height={350}
+                  className="object-contain max-h-56 sm:max-h-72"
                 />
               </div>
+
               <button
                 className={`${card.buttonColor} text-white rounded-md py-2 px-4 mt-4 self-center hover:opacity-90 transition`}
               >
@@ -173,13 +170,13 @@ export default function PromotionCarousel() {
           ))}
         </div>
 
-        {/* Pagination dots */}
+        {/* Pagination */}
         <div className="flex justify-center mt-6 space-x-2">
           {Array.from({ length: totalSlides }).map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-8 h-1 rounded transition-colors ${
+              className={`w-6 sm:w-8 h-1 rounded transition-colors ${
                 index === currentSlide ? "bg-blue-600" : "bg-gray-300"
               }`}
               aria-label={`Go to slide ${index + 1}`}
@@ -188,27 +185,27 @@ export default function PromotionCarousel() {
         </div>
       </div>
 
-      {/* Navigation buttons */}
+      {/* Nav buttons */}
       <button
         onClick={goToPrevSlide}
-        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow hover:bg-gray-100 transition z-10"
+        className="absolute left-2 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow hover:bg-gray-100 transition z-10"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="h-6 w-6" />
+        <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
       </button>
 
       <button
         onClick={goToNextSlide}
-        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow hover:bg-gray-100 transition z-10"
+        className="absolute right-2 top-1/2 -translate-y-1/2 bg-white rounded-full p-2 shadow hover:bg-gray-100 transition z-10"
         aria-label="Next slide"
       >
-        <ChevronRight className="h-6 w-6" />
+        <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
       </button>
     </div>
   );
 }
 
-// Helper functions to generate random colors for billboard promotions
+// Helpers
 function getRandomBgColor(): string {
   const colors = [
     "bg-orange-50",
@@ -220,7 +217,6 @@ function getRandomBgColor(): string {
   ];
   return colors[Math.floor(Math.random() * colors.length)];
 }
-
 function getRandomTextColor(): string {
   const colors = [
     "text-orange-800",
@@ -232,7 +228,6 @@ function getRandomTextColor(): string {
   ];
   return colors[Math.floor(Math.random() * colors.length)];
 }
-
 function getRandomButtonColor(): string {
   const colors = [
     "bg-orange-600",

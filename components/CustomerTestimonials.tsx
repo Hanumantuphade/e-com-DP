@@ -5,16 +5,76 @@ import SectionTitle from "../components/SectionTitle";
 
 // Sample testimonial data
 const testimonials = [
-  { id: 1, name: "Subhash Sehgal", quote: "The ability to order from anywhere, anytime with Dua Pharmacy's doorstep delivery has been a game-changer for managing my medications. Their service is reliable and always on time!", rating: 5 },
-  { id: 2, name: "Anita Verma", quote: "I’ve been ordering my medicines from Dua Pharmacy for the past year, and I must say the convenience and speed of their service is unmatched. The app is easy to use, and deliveries are always prompt.", rating: 5 },
-  { id: 3, name: "Rohit Mehra", quote: "Dua Pharmacy has made managing my parents’ prescriptions so easy. I no longer have to rush to a pharmacy – everything comes to my doorstep on time with genuine medicines.", rating: 5 },
-  { id: 4, name: "Pooja Sharma", quote: "The best thing about Dua Pharmacy is their reliability. Even during emergencies, they have delivered medicines quickly. Truly a lifesaver for my family!", rating: 5 },
-  { id: 5, name: "Arvind Gupta", quote: "I really appreciate the professionalism of Dua Pharmacy. Their team is polite, delivery is fast, and medicines are always properly packed and authentic.", rating: 5 },
-  { id: 6, name: "Sneha Kapoor", quote: "Dua Pharmacy is my go-to for all healthcare needs. Not only do they provide medicines, but also health essentials, and everything is just a click away.", rating: 5 },
-  { id: 7, name: "Vikas Malhotra", quote: "Excellent service! Ordering repeat medicines is super simple with Dua Pharmacy’s app. They even remind me when it’s time to refill. Highly recommended!", rating: 5 },
-  { id: 8, name: "Neha Bansal", quote: "I love how Dua Pharmacy ensures quality and affordability at the same time. Their doorstep delivery has saved me so much time and effort.", rating: 5 },
-  { id: 9, name: "Rahul Khanna", quote: "Dua Pharmacy’s service is trustworthy and customer-friendly. The delivery staff are always courteous, and I never worry about getting the wrong medicine.", rating: 5 },
-  { id: 10, name: "Kirti Jain", quote: "I’m impressed with Dua Pharmacy’s seamless service. Ordering medicines online was new for me, but their platform is so user-friendly that I’ve completely switched over.", rating: 5 },
+  {
+    id: 1,
+    name: "Subhash Sehgal",
+    quote:
+      "The ability to order from anywhere, anytime with Dua Pharmacy's doorstep delivery has been a game-changer for managing my medications. Their service is reliable and always on time!",
+    rating: 5,
+  },
+  {
+    id: 2,
+    name: "Anita Verma",
+    quote:
+      "I’ve been ordering my medicines from Dua Pharmacy for the past year, and I must say the convenience and speed of their service is unmatched. The app is easy to use, and deliveries are always prompt.",
+    rating: 5,
+  },
+  {
+    id: 3,
+    name: "Rohit Mehra",
+    quote:
+      "Dua Pharmacy has made managing my parents’ prescriptions so easy. I no longer have to rush to a pharmacy – everything comes to my doorstep on time with genuine medicines.",
+    rating: 5,
+  },
+  {
+    id: 4,
+    name: "Pooja Sharma",
+    quote:
+      "The best thing about Dua Pharmacy is their reliability. Even during emergencies, they have delivered medicines quickly. Truly a lifesaver for my family!",
+    rating: 5,
+  },
+  {
+    id: 5,
+    name: "Arvind Gupta",
+    quote:
+      "I really appreciate the professionalism of Dua Pharmacy. Their team is polite, delivery is fast, and medicines are always properly packed and authentic.",
+    rating: 5,
+  },
+  {
+    id: 6,
+    name: "Sneha Kapoor",
+    quote:
+      "Dua Pharmacy is my go-to for all healthcare needs. Not only do they provide medicines, but also health essentials, and everything is just a click away.",
+    rating: 5,
+  },
+  {
+    id: 7,
+    name: "Vikas Malhotra",
+    quote:
+      "Excellent service! Ordering repeat medicines is super simple with Dua Pharmacy’s app. They even remind me when it’s time to refill. Highly recommended!",
+    rating: 5,
+  },
+  {
+    id: 8,
+    name: "Neha Bansal",
+    quote:
+      "I love how Dua Pharmacy ensures quality and affordability at the same time. Their doorstep delivery has saved me so much time and effort.",
+    rating: 5,
+  },
+  {
+    id: 9,
+    name: "Rahul Khanna",
+    quote:
+      "Dua Pharmacy’s service is trustworthy and customer-friendly. The delivery staff are always courteous, and I never worry about getting the wrong medicine.",
+    rating: 5,
+  },
+  {
+    id: 10,
+    name: "Kirti Jain",
+    quote:
+      "I’m impressed with Dua Pharmacy’s seamless service. Ordering medicines online was new for me, but their platform is so user-friendly that I’ve completely switched over.",
+    rating: 5,
+  },
 ];
 
 const CustomerTestimonials = () => {
@@ -63,7 +123,9 @@ const CustomerTestimonials = () => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className={`w-4 h-4 sm:w-5 sm:h-5 ${index < rating ? "text-yellow-400" : "text-gray-400"}`}
+          className={`w-4 h-4 sm:w-5 sm:h-5 ${
+            index < rating ? "text-yellow-400" : "text-gray-400"
+          }`}
         >
           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.97a1 1 0 00.95.69h4.18c.969 0 1.371 1.24.588 1.81l-3.39 2.46a1 1 0 00-.364 1.118l1.287 3.971c.3.921-.755 1.688-1.54 1.118l-3.39-2.46a1 1 0 00-1.175 0l-3.39 2.46c-.784.57-1.838-.197-1.54-1.118l1.287-3.971a1 1 0 00-.364-1.118L2.88 9.397c-.783-.57-.38-1.81.588-1.81h4.18a1 1 0 00.95-.69l1.286-3.97z" />
         </motion.svg>
@@ -79,7 +141,12 @@ const CustomerTestimonials = () => {
       <div className="absolute inset-0 bg-black/40 z-0" />
 
       <div className="relative z-10 container mx-auto px-4 sm:px-6">
-        <SectionTitle title="What Our Clients Say" subtitle="Testimonials" center light />
+        <SectionTitle
+          title="What Our Clients Say"
+          subtitle="Testimonials"
+          center
+          light
+        />
 
         <Slider {...settings} className="testimonial-slider">
           {testimonials.map((testimonial) => (

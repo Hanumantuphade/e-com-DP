@@ -110,7 +110,7 @@ export default function AboutUs() {
                 <div className="absolute -inset-4 bg-gradient-to-r from-green-200 to-blue-200 rounded-2xl transform -rotate-3 opacity-70"></div>
                 <div className="relative overflow-hidden rounded-xl shadow-2xl">
                   <Image
-                    src="/image1.png"
+                    src="/gallery/g4.png"
                     alt="Dua Pharmacy Store"
                     width={600}
                     height={400}

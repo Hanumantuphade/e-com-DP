@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import FooterHeader from "./FooterHeader";
 import TopBrands from "./topBrands";
+import { url } from "inspector";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -204,7 +205,7 @@ export default function Footer() {
                     {
                       icon: <Instagram className="w-6 h-6" />,
                       color: "bg-pink-500 ",
-                      url: "https://wa.me/c/916284824078",
+                      url: "https://www.instagram.com/duapharmacy2024/?utm_source=qr&igsh=NnY0cmxuMWxkdGwx#",
                     },
                     {
                       icon: (
@@ -223,7 +224,7 @@ export default function Footer() {
                   ].map((social, index) => (
                     <a
                       key={index}
-                      href="#"
+                      href={social.url}
                       className={`${social.color} text-white p-2 rounded-full hover:opacity-90 transition-opacity flex items-center justify-center`}
                       aria-label="Social media link"
                     >

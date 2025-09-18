@@ -2,10 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import SearchBar from "./SearchBar";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   const openWhatsApp = () => {
     window.open(`https://wa.me/917206234875`, "_blank", "noopener,noreferrer");
@@ -19,19 +20,31 @@ export default function Header() {
     { name: "About Us", path: "/aboutus" },
   ];
 
+  // transparent only on home
+  const isHome = pathname === "/";
+  const headerBg = isHome ? "bg-transparent" : "bg-white shadow-md";
+  const navText = isHome ? "text-gray-900" : "text-gray-700";
+  const hoverText = isHome ? "hover:text-green-300" : "hover:text-green-600";
+
   return (
-    <header className="w-full fixed top-0 z-50 bg-white shadow-lg">
+    <header
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${headerBg}`}
+    >
       {/* === TOP BAR === */}
-      <div className="w-full border-b">
-        <div className="container mx-auto flex items-center justify-between py-2 px-4">
+      <div
+        className={`w-full border-b ${
+          isHome ? "border-transparent" : "border-gray-200"
+        }`}
+      >
+        <div className="max-w-7xl mx-auto flex items-center justify-between py-2 px-4 md:px-6 lg:px-8">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <div className="relative h-14 w-44 sm:h-16 sm:w-48">
+            <div className="relative h-12 w-40 sm:h-14 sm:w-44 md:h-16 md:w-48">
               <Image
                 src="/logo.svg"
                 alt="DUA Pharmacy"
                 fill
-                sizes="(max-width: 768px) 12rem, 14rem"
+                sizes="(max-width: 768px) 10rem, 12rem"
                 className="object-contain object-left"
                 priority
                 quality={100}
@@ -39,12 +52,20 @@ export default function Header() {
             </div>
           </Link>
 
-          {/* Search Bar (desktop only) */}
-          <div className="hidden md:block flex-grow mx-6">
-            <SearchBar />
-          </div>
+          {/* Desktop NAV LINKS */}
+          <nav className="hidden md:flex items-center space-x-6 lg:space-x-12">
+            {menuItems.map((item, idx) => (
+              <Link
+                key={idx}
+                href={item.path}
+                className={`text-base font-medium transition-colors ${navText} ${hoverText}`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
 
-          {/* Right Side */}
+          {/* Right Side Icons */}
           <div className="flex items-center space-x-3 sm:space-x-5">
             {/* Account */}
             <Link
@@ -54,7 +75,7 @@ export default function Header() {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-700"
+                className={`h-6 w-6 ${navText}`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -76,7 +97,7 @@ export default function Header() {
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-700"
+                className={`h-6 w-6 ${navText}`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -118,7 +139,7 @@ export default function Header() {
               {menuOpen ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-700"
+                  className={`h-6 w-6 ${navText}`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -133,7 +154,7 @@ export default function Header() {
               ) : (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-700"
+                  className={`h-6 w-6 ${navText}`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -151,37 +172,15 @@ export default function Header() {
         </div>
       </div>
 
-      {/* === MOBILE SEARCH === */}
-      <div className="block md:hidden bg-white p-3 border-b">
-        <SearchBar />
-      </div>
-
-      {/* === DESKTOP NAV === */}
-      <div className="hidden md:block bg-gradient-to-r from-green-600 to-blue-600 text-white">
-        <div className="container mx-auto">
-          <nav className="flex justify-between items-center px-24">
-            {menuItems.map((item, idx) => (
-              <Link
-                key={idx}
-                href={item.path}
-                className="px-6 py-3 text-lg font-medium hover:text-green-300 transition-colors"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </div>
-
       {/* === MOBILE NAV (dropdown) === */}
       {menuOpen && (
         <div className="md:hidden bg-gradient-to-r from-green-300 to-blue-400 text-slate-900">
-          <nav className="flex flex-col items-center py-4 space-y-16">
+          <nav className="flex flex-col items-center py-20 space-y-8">
             {menuItems.map((item, idx) => (
               <Link
                 key={idx}
                 href={item.path}
-                className="text-base font-medium hover:text-green-300 transition-colors"
+                className="text-base font-medium hover:text-green-700 transition-colors"
                 onClick={() => setMenuOpen(false)}
               >
                 {item.name}

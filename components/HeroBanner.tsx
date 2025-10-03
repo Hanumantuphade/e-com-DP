@@ -14,7 +14,7 @@ const slides = [
     heading: "Quality Medicines, Assured Care",
     subText:
       "DUA Pharma Store delivers only verified and authentic medicines from reputed manufacturers for your safety.",
-    bg: "/hero/h4.jpg",
+    bg: "/hero/h4.png",
   },
   {
     heading: "Everything Your Family Needs",
@@ -26,7 +26,7 @@ const slides = [
     heading: "Fast Delivery & Friendly Service",
     subText:
       "Order online and get your medicines quickly with our prompt and reliable doorstep delivery.",
-    bg: "/hero/h3.jpg",
+    bg: "/hero/h3.png",
   },
   {
     heading: "Wellness Beyond Medicines",
@@ -34,6 +34,7 @@ const slides = [
       "Explore vitamins, supplements, baby care and personal care products – all in one trusted store.",
     bg: "/hero/hero1.webp",
   },
+  
 ];
 
 const HeroBanner = () => {

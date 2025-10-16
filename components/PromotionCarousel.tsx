@@ -4,158 +4,113 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Billboard, PromotionCard } from "@/types";
-import { getBillboards } from "@/services/billboard-service";
+type CarouselItem = {
+  id: string;
+  name: string;
+  description: string;
+  offer: string;
+  imageUrl: string;
+};
 
-const staticPromotionCards: PromotionCard[] = [
-  {
-    id: 1,
-    bgColor: "bg-orange-50",
-    textColor: "text-orange-800",
-    title: "Your Daily Dose of Energy",
-    subtitle: "Superior Protein for Everyday Energy & Muscle Repair",
-    buttonColor: "bg-orange-600",
-    imageSrc: "/energy.png",
-  },
-  {
-    id: 2,
-    bgColor: "bg-teal-50",
-    textColor: "text-teal-800",
-    title: "Wellness simplified",
-    subtitle: "with Dua Pharmacy products",
-    buttonColor: "bg-teal-600",
-    discount: "Up to 25% off",
-    imageSrc: "/well.png",
-  },
-  {
-    id: 3,
-    bgColor: "bg-purple-50",
-    textColor: "text-purple-800",
-    title: "Natural Ayurvedic Products",
-    subtitle: "Ancient wisdom for modern health challenges",
-    buttonColor: "bg-purple-600",
-    discount: "Up to 30% off",
-    imageSrc: "/ayurveda.png",
-  },
-  {
-    id: 4,
-    bgColor: "bg-green-50",
-    textColor: "text-green-800",
-    title: "Mamaearth Ubtan Face Wash",
-    subtitle: "Gentle care for refreshed & clear skin",
-    buttonColor: "bg-green-600",
-    discount: "Flat 35% off",
-    imageSrc: "/me1.jpg",
-  },
-  {
-    id: 5,
-    bgColor: "bg-yellow-50",
-    textColor: "text-yellow-800",
-    title: "Mamaearth Daily Glow Sunscreen",
-    subtitle: "Shield your skin with SPF protection",
-    buttonColor: "bg-yellow-600",
-    discount: "Save up to 35%",
-    imageSrc: "/me2.jpg",
-  },
-  {
-    id: 6,
-    bgColor: "bg-teal-50",
-    textColor: "text-teal-800",
-    title: "Derma Face Wash + Anti-Acne Serum + Sunscreen Aqua Gel Combo",
-    subtitle: "Complete daily skincare routine for clear & protected skin",
-    buttonColor: "bg-teal-600",
-    discount: "Up to 30% off",
-    imageSrc: "/d1.jpg",
-  },
-  {
-    id: 7,
-    bgColor: "bg-indigo-50",
-    textColor: "text-indigo-800",
-    title: "Derma Face Wash + Acid Face Serum + Daily Moisturizer Combo",
-    subtitle: "Cleanse, treat & hydrate in one effective pack",
-    buttonColor: "bg-indigo-600",
-    discount: "Flat 30% off",
-    imageSrc: "/d2.jpg",
-  },
-];
 
 export default function PromotionCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [allPromotions, setAllPromotions] =
-    useState<PromotionCard[]>(staticPromotionCards);
+  const [items, setItems] = useState<CarouselItem[]>([]);
   const autoPlayRef = useRef<NodeJS.Timeout | null>(null);
-  const [totalSlides, setTotalSlides] = useState(staticPromotionCards.length);
+  const [isHovered, setIsHovered] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchBillboards = async () => {
+    let ignore = false;
+    const load = async () => {
       try {
-        const billboards = await getBillboards();
-
-        const billboardPromotions: PromotionCard[] = billboards.map(
-          (billboard: Billboard, index) => ({
-            id: 1000 + index,
-            bgColor: getRandomBgColor(),
-            textColor: getRandomTextColor(),
-            title: billboard.label,
-            subtitle: "Featured promotion",
-            buttonColor: getRandomButtonColor(),
-            imageSrc: billboard.imageUrl,
-          })
-        );
-
-        const combined = [...staticPromotionCards, ...billboardPromotions];
-        setAllPromotions(combined);
-        setTotalSlides(combined.length);
-      } catch (error) {
-        console.error("Error fetching billboards:", error);
+        setLoading(true);
+        setError(null);
+        const res = await fetch("/api/promotion-carousel");
+        if (!res.ok) throw new Error(`Failed: ${res.status}`);
+        const data: CarouselItem[] = await res.json();
+        if (!ignore) {
+          setItems(data);
+          setCurrentSlide(0);
+        }
+      } catch (e: any) {
+        if (!ignore) setError(e?.message || "Failed to load");
+        console.error("Error fetching promotion carousel:", e);
+      } finally {
+        if (!ignore) setLoading(false);
       }
     };
-
-    fetchBillboards();
+    load();
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   useEffect(() => {
-    const autoSlide = () => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
-    };
-
-    autoPlayRef.current = setInterval(autoSlide, 5000);
-
+    if (isHovered || items.length <= 1) return;
+    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    autoPlayRef.current = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % items.length);
+    }, 5000);
     return () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     };
-  }, [totalSlides]);
+  }, [items.length, isHovered]);
 
   const goToSlide = (slideIndex: number) => {
-    setCurrentSlide(slideIndex);
-    if (autoPlayRef.current) clearInterval(autoPlayRef.current);
-    autoPlayRef.current = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % totalSlides);
-    }, 5000);
+    if (items.length === 0) return;
+    setCurrentSlide(slideIndex % items.length);
+    if (!isHovered && items.length > 1) {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+      autoPlayRef.current = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % items.length);
+      }, 5000);
+    }
   };
 
   const goToPrevSlide = () => {
-    const prevSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    const total = items.length || 1;
+    const prevSlide = (currentSlide - 1 + total) % total;
     goToSlide(prevSlide);
   };
 
   const goToNextSlide = () => {
-    const nextSlide = (currentSlide + 1) % totalSlides;
+    const total = items.length || 1;
+    const nextSlide = (currentSlide + 1) % total;
     goToSlide(nextSlide);
   };
+  const totalSlides = items.length;
+  const currentItem = items[currentSlide] || null;
 
-  const startIndex = currentSlide;
-  const endIndex = (currentSlide + 1) % totalSlides;
-  const visibleCards = [allPromotions[startIndex]];
-
-  if (startIndex !== endIndex) {
-    visibleCards.push(allPromotions[endIndex]);
-  } else {
-    visibleCards.push(allPromotions[0]);
+  if (loading) {
+    return (
+      <div className="relative py-8 mt-14 mx-3 sm:mx-5 rounded-xl overflow-hidden">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="h-64 bg-gray-200 animate-pulse rounded-lg" />
+        </div>
+      </div>
+    );
   }
 
+  if (error) {
+    return (
+      <div className="relative py-8 mt-14 mx-3 sm:mx-5 rounded-xl overflow-hidden">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 text-center text-red-600">
+          Failed to load promotions
+        </div>
+      </div>
+    );
+  }
+
+  if (!currentItem) return null;
+
   return (
-    <div className="relative py-8 mt-14 mx-3 sm:mx-5 rounded-xl overflow-hidden">
+    <div
+      className="relative py-8 mt-14 mx-3 sm:mx-5 rounded-xl overflow-hidden"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {/* Background */}
       <img
         className="absolute inset-0 w-full h-full object-cover z-0"
@@ -165,49 +120,36 @@ export default function PromotionCarousel() {
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:space-x-4 items-stretch justify-center">
-          {visibleCards.map((card) => (
-            <div
-              key={card.id}
-              className={`w-full sm:w-1/2 ${card.bgColor} rounded-lg p-6 flex flex-col mb-4 sm:mb-0 shadow-md transition-all duration-300`}
-            >
-              <div className="mb-2 flex justify-between items-start">
-                <div>
-                  <h3
-                    className={`text-lg sm:text-xl font-bold ${card.textColor}`}
-                  >
-                    {card.title}
-                  </h3>
-                  <p
-                    className={`text-sm sm:text-base ${card.textColor} opacity-90`}
-                  >
-                    {card.subtitle}
-                  </p>
-                </div>
-                {card.discount && (
-                  <div className="bg-red-500 text-white px-2 py-1 text-xs rounded">
-                    {card.discount}
-                  </div>
-                )}
+        <div className="flex flex-col items-stretch justify-center">
+          <div
+            key={currentItem.id}
+            className="w-full bg-white/80 backdrop-blur rounded-lg p-6 flex flex-col shadow-md transition-all duration-300"
+          >
+            <div className="mb-2 flex justify-between items-start">
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900">
+                  {currentItem.name}
+                </h3>
+                <p className="text-sm sm:text-base text-gray-700 opacity-90">
+                  {currentItem.description}
+                </p>
               </div>
-
-              <div className="flex-1 flex items-center justify-center py-4">
-                <Image
-                  src={card.imageSrc}
-                  alt={card.title}
-                  width={500}
-                  height={350}
-                  className="object-contain max-h-56 sm:max-h-72"
-                />
+              <div className="bg-red-500 text-white px-2 py-1 text-xs rounded">
+                {currentItem.offer}
               </div>
-
-              <button
-                className={`${card.buttonColor} text-white rounded-md py-2 px-4 mt-4 self-center hover:opacity-90 transition`}
-              >
-                Order now
-              </button>
             </div>
-          ))}
+
+            <div className="flex-1 flex items-center justify-center py-4">
+              <Image
+                src={currentItem.imageUrl}
+                alt={currentItem.name}
+                width={500}
+                height={350}
+                className="object-contain max-h-56 sm:max-h-72"
+                style={{ width: "auto" }}
+              />
+            </div>
+          </div>
         </div>
 
         {/* Pagination */}

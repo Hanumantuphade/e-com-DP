@@ -15,13 +15,14 @@ export async function GET() {
     });
 
     if (!response.ok) {
-      throw new Error(`API responded with status: ${response.status}`);
+      console.warn(`Upstream discounts responded with status: ${response.status}`);
+      return NextResponse.json([]);
     }
 
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
     console.error('Error fetching discounts:', error);
-    return NextResponse.json({ error: 'Failed to fetch discounts' }, { status: 500 });
+    return NextResponse.json([]);
   }
 }

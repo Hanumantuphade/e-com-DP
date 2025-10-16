@@ -17,13 +17,14 @@ export async function GET() {
     });
 
     if (!response.ok) {
-      throw new Error(`API responded with status: ${response.status}`);
+      console.warn(`Upstream categories responded with status: ${response.status}`);
+      return NextResponse.json([]);
     }
 
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
     console.error('Error fetching categories:', error);
-    return NextResponse.json({ error: 'Failed to fetch categories' }, { status: 500 });
+    return NextResponse.json([]);
   }
 }

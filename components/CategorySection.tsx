@@ -22,15 +22,22 @@ const CategorySection: React.FC<CategorySectionProps> = ({
   const router = useRouter();
 
   useEffect(() => {
+    let isMounted = true;
     const fetchCategories = async () => {
       try {
         const fetched = await getCategories();
-        setCategories(fetched);
+        if (isMounted) setCategories(fetched);
       } catch (error) {
         console.error("Failed to fetch categories", error);
       }
     };
     fetchCategories();
+    const handler = () => fetchCategories();
+    window.addEventListener("categories:updated", handler as EventListener);
+    return () => {
+      isMounted = false;
+      window.removeEventListener("categories:updated", handler as EventListener);
+    };
   }, []);
 
   const handleCategoryClick = (categoryId: string) => {
@@ -66,8 +73,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({
             justify-start md:justify-center">
             {categories.map((category) => {
               const imageSrc =
-                category.image ||
-                `/${category.name.toLowerCase().replace(/\s+/g, "-")}.png`;
+                category.image || "/logo1.png";
               return (
                 <div
                   key={category.id}
@@ -93,6 +99,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({
                       src={imageSrc}
                       alt={category.name}
                       fill
+                      sizes="(max-width: 640px) 80px, 96px"
                       className="object-contain rounded-full p-2"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;

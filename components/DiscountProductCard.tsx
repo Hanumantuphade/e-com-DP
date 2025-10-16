@@ -54,12 +54,12 @@ const DiscountProductCard: React.FC<DiscountProductCardProps> = ({ product }) =>
             src={mainImage}
             alt={product.name}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
           />
           
           {/* Gradient overlay on hover */}
           <div className={`absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`} />
-          
           {/* Clean discount badge */}
           <div className="absolute top-3 right-3">
             <div className="bg-red-500 text-white text-sm font-bold px-3 py-1.5 rounded-lg shadow-lg">
@@ -67,7 +67,6 @@ const DiscountProductCard: React.FC<DiscountProductCardProps> = ({ product }) =>
             </div>
           </div>
           
-          {/* Quick action buttons */}
           <div className={`absolute top-3 left-3 transition-all duration-300 ${isHovered ? 'translate-x-0 opacity-100' : '-translate-x-8 opacity-0'}`}>
             <button 
               onClick={handleLikeClick}

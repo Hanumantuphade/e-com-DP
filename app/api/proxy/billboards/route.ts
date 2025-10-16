@@ -15,13 +15,16 @@ export async function GET() {
     });
 
     if (!response.ok) {
-      throw new Error(`API responded with status: ${response.status}`);
+      console.warn(`Upstream billboards responded with status: ${response.status}`);
+      // Fallback gracefully to an empty list to avoid UI errors
+      return NextResponse.json([]);
     }
 
     const data = await response.json();
     return NextResponse.json(data);
   } catch (error) {
     console.error('Error fetching billboards:', error);
-    return NextResponse.json({ error: 'Failed to fetch billboards' }, { status: 500 });
+    // Fallback gracefully to an empty list on network or other errors
+    return NextResponse.json([]);
   }
 }

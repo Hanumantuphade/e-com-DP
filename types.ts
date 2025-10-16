@@ -51,6 +51,7 @@ export interface Product {
   storeId: string;
   categoryId: string;
   name: string;
+  description?: string;
   price: string;
   isFeatured: boolean;
   isArchived: boolean;

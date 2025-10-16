@@ -1,7 +1,7 @@
 // services/product-service.ts
 import { Product } from "@/types";
 
-const BASE_URL = "/api/proxy/products";
+const BASE_URL = "/api/products";
 
 export const getProducts = async (): Promise<Product[]> => {
   try {
@@ -35,8 +35,11 @@ export const getProduct = async (id: string): Promise<Product> => {
 
 export const getFeaturedProducts = async (): Promise<Product[]> => {
   try {
-    const products = await getProducts();
-    return products.filter(product => product.isFeatured);
+    const response = await fetch(`/api/featured-products`, { cache: 'no-store' });
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    return response.json();
   } catch (error) {
     console.error("Error fetching featured products:", error);
     throw error;

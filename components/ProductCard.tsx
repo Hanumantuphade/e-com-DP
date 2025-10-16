@@ -1,4 +1,3 @@
-// components/ProductCard.tsx
 "use client";
 import { Product } from "@/types";
 import Image from "next/image";
@@ -27,7 +26,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   const handleLikeClick = (e: React.MouseEvent) => {
-    e.preventDefault();
     e.stopPropagation();
     setIsLiked(!isLiked);
   };
@@ -44,6 +42,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             src={mainImage}
             alt={product.name}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
           />
           
@@ -64,14 +63,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 }`} 
               />
             </button>
-          </div>
-
-          {/* Quick view indicator */}
-          <div className={`absolute bottom-3 left-3 right-3 transition-all duration-300 ${isHovered ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
-            <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-1.5 flex items-center justify-center text-xs font-medium text-gray-700">
-              <ExternalLink className="h-3 w-3 mr-1" />
-              Quick View
-            </div>
           </div>
         </div>
       </Link>

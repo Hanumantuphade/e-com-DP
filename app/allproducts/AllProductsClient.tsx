@@ -14,7 +14,6 @@ import { categoryData } from "@/services/category-service";
 import { ChevronDown, SlidersHorizontal, X } from "lucide-react";
 import Link from "next/link";
 
-// Sort options
 const sortOptions = [
   { value: "name-asc", label: "Name: A-Z" },
   { value: "name-desc", label: "Name: Z-A" },
@@ -40,11 +39,9 @@ export default function AllProductsPage() {
         setProducts(fetchedProducts);
         setFilteredProducts(fetchedProducts);
         
-        // Set initial max price based on highest product price
         const maxPrice = Math.max(...fetchedProducts.map(p => parseFloat(p.price)));
         setPriceRange(prev => ({ ...prev, max: Math.ceil(maxPrice) }));
         
-        // Check for category in URL params
         const category = searchParams.get("category");
         if (category) {
           setFilterCategory(category);
@@ -59,22 +56,18 @@ export default function AllProductsPage() {
     fetchProducts();
   }, [searchParams]);
 
-  // Apply filters and sorting
   useEffect(() => {
     let result = [...products];
 
-    // Apply category filter
     if (filterCategory) {
       result = result.filter(product => product.categoryId === filterCategory);
     }
 
-    // Apply price filter
     result = result.filter(product => {
       const price = parseFloat(product.price);
       return price >= priceRange.min && price <= priceRange.max;
     });
 
-    // Apply sorting
     switch (sortBy) {
       case "name-asc":
         result.sort((a, b) => a.name.localeCompare(b.name));
@@ -95,7 +88,6 @@ export default function AllProductsPage() {
     setFilteredProducts(result);
   }, [products, filterCategory, sortBy, priceRange]);
 
-  // Reset all filters
   const handleResetFilters = () => {
     setFilterCategory("");
     setSortBy("name-asc");

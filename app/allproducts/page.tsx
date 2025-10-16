@@ -1,9 +1,5 @@
-// app/allproducts/page.tsx
 import React, { Suspense } from 'react'
-import AllProductsPage from './AllProductsClient';
-
-
-
+import AllProductsPage from './AllProductsClientDynamic';
 
 export const dynamic = 'force-dynamic';
 

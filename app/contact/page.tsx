@@ -51,7 +51,7 @@ export default function ContactPage() {
       <div className="relative bg-gradient-to-r from-green-600 to-green-800 min-h-screen md:min-h-screen lg:min-h-screen py-24 overflow-hidden">
         <img
           className="absolute  inset-0 w-full h-full object-cover z-0"
-          src="/c1.png"
+          src="/hero/hero4.jpg"
           alt=""
         />
         {/* Decorative Elements */}
@@ -60,19 +60,23 @@ export default function ContactPage() {
         <div className="absolute bottom-10 right-10 w-60 h-60 bg-blue-300 rounded-full opacity-10"></div>
         <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-green-400 rounded-full opacity-10"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative top-24 z-10">
+        <div className="relative w-full h-[80vh] flex items-center justify-start">
+          {/* Text Content Positioned Inside Red Box */}
           <motion.div
-            className="text-center"
+            className="absolute left-[1%] top-[25%] text-center  z-10"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl text-center font-bold text-stone-700 mb-3">
               Contact Us
             </h1>
-            <p className="text-xl text-black max-w-3xl mx-auto">
-              We're here to help you with all your healthcare needs. Reach out
-              to us anytime.
+            <p className="text-lg md:text-xl text-gray-800 leading-relaxed">
+              Your wellness is our lifelong mission. <br />
+              Reach out for expert support and authentic healthcare advice.{" "}
+              <br />
+              We’re always ready to provide quick, compassionate, and reliable
+              assistance.
             </p>
           </motion.div>
         </div>

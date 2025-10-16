@@ -124,17 +124,11 @@ export default function AllProductsPage() {
       {/* Page Header */}
       <section className="relative  w-full h-[300px] min-h-[500px] overflow-hidden">
       {/* Background Video */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        preload="auto"
-        playsInline
-        loop
-        muted
-        autoPlay
-      >
-        <source src="/product.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      <img
+          className="absolute  inset-0 w-full h-full object-cover z-0"
+          src="/product.png"
+          alt=""
+        />
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-40 z-10" />

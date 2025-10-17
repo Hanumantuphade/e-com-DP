@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+body,
+html {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.bg-light-blue {
+  background-color: #e6f7ff;
+}
+
+.bg-truemeds-blue {
+  background-color: #167bff;
+}
+
+.bg-light-green {
+  background-color: #c8f4c8;
+}
+
+.text-truemeds-blue {
+  color: #167bff;
+}
+/* Add this to your global.css file or create a new CSS module for AllProducts */
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Custom range slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  border-radius: 5px;
+  background: #e5e7eb;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #10b981;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #10b981;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Product card hover effects */
+.product-card-hover-effect {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card-hover-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Fade in animation for products */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Staggered animation for product cards */
+.product-grid > div {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.product-grid > div:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.product-grid > div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.product-grid > div:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.product-grid > div:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.product-grid > div:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.product-grid > div:nth-child(6) {
+  animation-delay: 0.6s;
+}
+.product-grid > div:nth-child(7) {
+  animation-delay: 0.7s;
+}
+.product-grid > div:nth-child(8) {
+  animation-delay: 0.8s;
+}

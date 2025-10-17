@@ -234,43 +234,7 @@ export default function AboutUs() {
           </div>
         </motion.div>
         
-        {/* Meet Our Team (Single Member) */}
-        <motion.div 
-          ref={teamRef}
-          className="mb-24"
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInViewTeam ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Meet Our Team</h2>
-            <div className="h-1 w-20 bg-green-500 mx-auto mb-8"></div>
-            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-              Our dedicated professionals work together to provide you with exceptional pharmaceutical care.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 justify-center">
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden group col-span-1 md:col-start-2">
-              <div className="relative h-80 overflow-hidden">
-                <Image
-                  src="/m1.jpg"
-                  alt="Team Member"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-green-900 to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-1">Dr. Rajesh Kumar</h3>
-                <p className="text-green-600 font-medium mb-4">Lead Pharmacist</p>
-                <p className="text-gray-700">
-                  With over 15 years of experience in pharmaceutical care, Dr. Kumar leads our team with expertise and compassion.
-                </p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        
         
         {/* Contact CTA Section */}
         <div className="bg-gradient-to-r from-green-500 to-blue-500 rounded-2xl overflow-hidden shadow-xl">

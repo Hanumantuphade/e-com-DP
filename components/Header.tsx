@@ -14,10 +14,9 @@ export default function Header() {
 
   const menuItems = [
     { name: "Home", path: "/" },
-    { name: "Products", path: "/allproducts" },
-    { name: "Gallery", path: "/gallery" },
-    { name: "Contact", path: "/contact" },
     { name: "About Us", path: "/aboutus" },
+    { name: "Products", path: "/allproducts" },
+    { name: "Contact", path: "/contact" },
   ];
 
   // transparent only on home
@@ -53,7 +52,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop NAV LINKS */}
-          <nav className="hidden md:flex items-center space-x-6 lg:space-x-12">
+          <nav className="hidden md:flex items-center space-x-6 lg:space-x-32">
             {menuItems.map((item, idx) => (
               <Link
                 key={idx}
@@ -67,50 +66,6 @@ export default function Header() {
 
           {/* Right Side Icons */}
           <div className="flex items-center space-x-3 sm:space-x-5">
-            {/* Account */}
-            <Link
-              href="/account"
-              className="p-2 rounded-full hover:bg-gray-100"
-              aria-label="Account"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className={`h-6 w-6 ${navText}`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-            </Link>
-
-            {/* Cart */}
-            <Link
-              href="/cart"
-              className="p-2 rounded-full hover:bg-gray-100"
-              aria-label="Cart"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className={`h-6 w-6 ${navText}`}
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-            </Link>
-
             {/* WhatsApp */}
             <button
               onClick={openWhatsApp}

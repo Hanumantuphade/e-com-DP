@@ -241,13 +241,20 @@ export default function Footer() {
             <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-1">
               <div className="animate-pulse bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 h-full rounded-full"></div>
             </div>
-            <div className="pt-6">
+            <div className="pt-6 text-gray-700 text-sm space-y-2">
               <p className="text-gray-700 text-sm">
                 © {currentYear} Dua Pharmacy. All Rights Reserved.
               </p>
-              <p className="text-xs text-gray-600 mt-2">
-                Committed to providing quality healthcare solutions since 2018.
-              </p>
+              
+              Designed and developed by{" "}
+        <a
+          href="https://www.yritsolutions.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:underline"
+        >
+          YR IT Solutions
+        </a>
             </div>
           </div>
         </div>

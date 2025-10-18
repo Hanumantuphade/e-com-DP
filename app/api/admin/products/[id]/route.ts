@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import ProductModel from "@/models/Product";
-import path from "path";
-import fs from "fs/promises";
+import { put } from "@vercel/blob";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -40,20 +39,12 @@ function toProductDTO(doc: any) {
   } as const;
 }
 
-async function ensureUploadsDir() {
-  const uploadsPath = path.join(process.cwd(), "public", "uploads");
-  await fs.mkdir(uploadsPath, { recursive: true });
-  return uploadsPath;
-}
-
-async function saveLocalImage(file: File) {
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-  const uploadsDir = await ensureUploadsDir();
-  const safeName = `${Date.now()}-${file.name.replace(/\s+/g, "_")}`;
-  const dest = path.join(uploadsDir, safeName);
-  await fs.writeFile(dest, buffer);
-  return `/uploads/${safeName}`;
+async function uploadToBlob(file: File) {
+  const safeName = `products/${Date.now()}-${file.name.replace(/\s+/g, "_")}`;
+  const blob = await put(safeName, file, {
+    access: "public",
+  });
+  return blob.url;
 }
 
 export async function PATCH(req: Request, context: { params: { id: string } }) {
@@ -85,7 +76,7 @@ export async function PATCH(req: Request, context: { params: { id: string } }) {
       if (image && image instanceof File && image.size > 0) {
         const mime = image.type || "";
         if (!mime.startsWith("image/")) return NextResponse.json({ error: "Only images allowed" }, { status: 400 });
-        const imageUrl = await saveLocalImage(image);
+        const imageUrl = await uploadToBlob(image);
         update.image = imageUrl;
       }
     } else {

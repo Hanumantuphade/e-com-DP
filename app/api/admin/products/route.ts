@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import ProductModel from "@/models/Product";
-import path from "path";
-import fs from "fs/promises";
+import { put } from "@vercel/blob";
 
 export const runtime = "nodejs";
 
@@ -50,20 +49,12 @@ export async function GET() {
   }
 }
 
-async function ensureUploadsDir() {
-  const uploadsPath = path.join(process.cwd(), "public", "uploads");
-  await fs.mkdir(uploadsPath, { recursive: true });
-  return uploadsPath;
-}
-
-async function saveLocalImage(file: File) {
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-  const uploadsDir = await ensureUploadsDir();
-  const safeName = `${Date.now()}-${file.name.replace(/\s+/g, "_")}`;
-  const dest = path.join(uploadsDir, safeName);
-  await fs.writeFile(dest, buffer);
-  return `/uploads/${safeName}`;
+async function uploadToBlob(file: File) {
+  const safeName = `products/${Date.now()}-${file.name.replace(/\s+/g, "_")}`;
+  const blob = await put(safeName, file, {
+    access: "public",
+  });
+  return blob.url;
 }
 
 export async function POST(req: Request) {
@@ -95,7 +86,7 @@ export async function POST(req: Request) {
       if (!mime.startsWith("image/")) {
         return NextResponse.json({ error: "Only image uploads are allowed" }, { status: 400 });
       }
-      imageUrl = await saveLocalImage(image);
+      imageUrl = await uploadToBlob(image);
     }
 
     const created = await ProductModel.create({

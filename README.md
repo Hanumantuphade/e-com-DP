@@ -2,6 +2,22 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### 1. Environment Setup
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+BLOB_READ_WRITE_TOKEN=your_blob_read_write_token
+```
+
+**Important for Vercel Deployment:**
+- The `BLOB_READ_WRITE_TOKEN` is required for image uploads to work on Vercel
+- Get your Blob token from [Vercel Dashboard > Storage](https://vercel.com/dashboard/stores)
+- In your Vercel project settings, add the `BLOB_READ_WRITE_TOKEN` environment variable
+
+### 2. Run the Development Server
+
 First, run the development server:
 
 ```bash
